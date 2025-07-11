@@ -96,5 +96,17 @@ namespace BackInovationMap.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("debug")]
+        [ProducesResponseType(200)]
+        public IActionResult GetDebugInfo()
+        {
+            var companies = _context.Companies.ToList();
+            return Ok(new { 
+                companies = companies,
+                count = companies.Count,
+                message = "Companies debug info"
+            });
+        }
     }
 }

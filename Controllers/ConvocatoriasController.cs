@@ -300,7 +300,7 @@ namespace BackInovationMap.Controllers
                     })
                     .OrderBy(c => c.Name)
                     .ToList();
-                    
+
                 return Ok(empresas);
             }
             catch (Exception ex)

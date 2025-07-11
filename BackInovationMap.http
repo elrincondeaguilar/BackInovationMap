@@ -1,4 +1,4 @@
-@BackInovationMap_HostAddress = http://localhost:5297
+@BackInovationMap_HostAddress = https://backinovationmap.onrender.com
 
 ###
 # Authentication Endpoints
