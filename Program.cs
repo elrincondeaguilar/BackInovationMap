@@ -65,6 +65,10 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Configurar el puerto dinámico para Render
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://0.0.0.0:{port}");
+
 // Middleware
 if (app.Environment.IsDevelopment())
 {
@@ -72,13 +76,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(
         c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API v1");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackInovationMap API v1");
             // c.RoutePrefix = string.Empty;
         }
     );
 }
+else
+{
+    // Habilitar Swagger también en producción para Render
+    app.UseSwagger();
+    app.UseSwaggerUI(
+        c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackInovationMap API v1");
+        }
+    );
+}
 
-app.UseHttpsRedirection();
+// No usar HTTPS redirect en Render (Render maneja SSL)
+// app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();

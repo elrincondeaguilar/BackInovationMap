@@ -1,0 +1,18 @@
+# render.yaml
+# Configuración para despliegue en Render
+
+services:
+  - type: web
+    name: backinovationmap
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:$PORT
+      - key: ConnectionStrings__DefaultConnection
+        value: Host=aws-0-us-east-2.pooler.supabase.com;Port=5432;Database=postgres;Username=postgres.jsddkeyspzigizepdvoy;Password=Ide0qDV5AJeb83wL
+    healthCheckPath: /api/companies

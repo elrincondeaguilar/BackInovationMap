@@ -376,6 +376,21 @@ El proyecto está listo para desplegar en:
 
 > La base de datos ya está en Supabase, solo necesitas desplegar la API.
 
+### ☁️ Despliegue en Render
+
+El proyecto está configurado para desplegarse fácilmente en Render:
+
+**Start Command para Render:**
+```
+dotnet BackInovationMap.dll
+```
+
+**Ver guía completa:** [`DEPLOY_RENDER.md`](./DEPLOY_RENDER.md)
+
+**URLs después del despliegue:**
+- API: `https://tu-app.onrender.com`
+- Swagger: `https://tu-app.onrender.com/swagger`
+
 ## 📞 Contacto y Soporte
 
 ### 👨‍💻 Información del Desarrollador
@@ -415,4 +430,3 @@ El proyecto está listo para desplegar en:
 
 ⭐ **¡No olvides darle una estrella al proyecto si te fue útil!** ⭐
 #   B a c k I n o v a t i o n M a p 
- 
