@@ -1,0 +1,145 @@
+@BackInovationMap_HostAddress = http://localhost:5297
+
+### Obtener todas las convocatorias
+GET {{BackInovationMap_HostAddress}}/api/convocatorias
+Accept: application/json
+
+### Obtener convocatorias activas
+GET {{BackInovationMap_HostAddress}}/api/convocatorias/activas
+Accept: application/json
+
+### Obtener empresas disponibles para convocatorias
+GET {{BackInovationMap_HostAddress}}/api/convocatorias/empresas-disponibles
+Accept: application/json
+
+### Crear una nueva empresa (para asociar a convocatorias)
+POST {{BackInovationMap_HostAddress}}/api/companies
+Content-Type: application/json
+
+{
+  "name": "TechCorp",
+  "description": "Empresa de tecnología e innovación",
+  "sector": "Tecnología",
+  "department": "Antioquia",
+  "url": "https://techcorp.com",
+  "logoUrl": "https://techcorp.com/logo.png"
+}
+
+### Crear convocatoria asociada a una empresa
+POST {{BackInovationMap_HostAddress}}/api/convocatorias
+Content-Type: application/json
+
+{
+  "titulo": "Convocatoria de Innovación Tecnológica 2025",
+  "descripcion": "Programa para startups y empresas tecnológicas innovadoras",
+  "fechaInicio": "2025-08-01T00:00:00Z",
+  "fechaFin": "2025-12-31T23:59:59Z",
+  "categoria": "tecnología",
+  "entidad": "TechCorp S.A.S",
+  "companyId": 1,
+  "presupuesto": 500000000,
+  "requisitos": [
+    "Empresa constituida legalmente",
+    "Proyecto con componente tecnológico innovador",
+    "Equipo de desarrollo conformado",
+    "Plan de negocio estructurado"
+  ]
+}
+
+### Crear convocatoria con estado manual
+POST {{BackInovationMap_HostAddress}}/api/convocatorias
+Content-Type: application/json
+
+{
+  "titulo": "Convocatoria de Innovación con Estado Manual",
+  "descripcion": "Programa para startups con estado controlado manualmente",
+  "fechaInicio": "2025-08-01T00:00:00Z",
+  "fechaFin": "2025-12-31T23:59:59Z",
+  "categoria": "tecnología",
+  "entidad": "TechCorp S.A.S",
+  "companyId": 1,
+  "presupuesto": 500000000,
+  "estado": "pendiente",
+  "estadoManual": true,
+  "requisitos": [
+    "Empresa constituida legalmente",
+    "Proyecto con componente tecnológico innovador",
+    "Equipo de desarrollo conformado",
+    "Plan de negocio estructurado"
+  ]
+}
+
+### Cambiar estado de convocatoria manualmente (de activa a cerrada)
+PUT {{BackInovationMap_HostAddress}}/api/convocatorias/1/estado
+Content-Type: application/json
+
+{
+  "estado": "cerrada"
+}
+
+### Restablecer estado automático (basado en fechas)
+PUT {{BackInovationMap_HostAddress}}/api/convocatorias/1/estado/automatico
+
+### Obtener convocatorias por empresa
+GET {{BackInovationMap_HostAddress}}/api/convocatorias/por-empresa/1
+Accept: application/json
+
+### Obtener convocatorias por categoría
+GET {{BackInovationMap_HostAddress}}/api/convocatorias/categoria/tecnología
+Accept: application/json
+
+### Obtener convocatorias por estado
+GET {{BackInovationMap_HostAddress}}/api/convocatorias/estado/cerrada
+Accept: application/json
+
+### Obtener convocatoria específica
+GET {{BackInovationMap_HostAddress}}/api/convocatorias/1
+Accept: application/json
+
+### Actualizar convocatoria completa
+PUT {{BackInovationMap_HostAddress}}/api/convocatorias/1
+Content-Type: application/json
+
+{
+  "titulo": "Convocatoria de Innovación Tecnológica 2025 - Actualizada",
+  "descripcion": "Programa actualizado para startups y empresas tecnológicas innovadoras",
+  "fechaInicio": "2025-09-01T00:00:00Z",
+  "fechaFin": "2025-12-31T23:59:59Z",
+  "categoria": "tecnología avanzada",
+  "entidad": "TechCorp S.A.S",
+  "companyId": 1,
+  "presupuesto": 750000000,
+  "requisitos": [
+    "Empresa constituida legalmente",
+    "Proyecto con componente tecnológico innovador",
+    "Equipo de desarrollo conformado",
+    "Plan de negocio estructurado",
+    "Experiencia previa en desarrollo tecnológico"
+  ]
+}
+
+### Actualizar convocatoria con estado manual
+PUT {{BackInovationMap_HostAddress}}/api/convocatorias/1
+Content-Type: application/json
+
+{
+  "titulo": "Convocatoria de Innovación Tecnológica 2025 - Con Estado Manual",
+  "descripcion": "Programa actualizado para startups y empresas tecnológicas innovadoras",
+  "fechaInicio": "2025-09-01T00:00:00Z",
+  "fechaFin": "2025-12-31T23:59:59Z",
+  "categoria": "tecnología avanzada",
+  "entidad": "TechCorp S.A.S",
+  "companyId": 1,
+  "presupuesto": 750000000,
+  "estado": "pendiente",
+  "estadoManual": true,
+  "requisitos": [
+    "Empresa constituida legalmente",
+    "Proyecto con componente tecnológico innovador",
+    "Equipo de desarrollo conformado",
+    "Plan de negocio estructurado",
+    "Experiencia previa en desarrollo tecnológico"
+  ]
+}
+
+###

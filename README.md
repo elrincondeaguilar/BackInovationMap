@@ -1,57 +1,35 @@
 # 🚀 BackInovationMap - API REST para Gestión de Innovación
 
-Una API REST robusta desarrollada en .NET 9 para la gestión de empresas, convocatorias y usuarios en plataformas de innovación.
+Una API REST robusta desarrollada en .NET 9 para la gestión de empresas, convocatorias y usuarios en plataformas de innovación. **Conectada a Supabase PostgreSQL** para máximo rendimiento y escalabilidad.
 
-## 📋 Características Principales
+## ⭐ Características Principales
 
 - **🏢 Gestión de Empresas**: CRUD completo para empresas innovadoras
-- **📢 Gestión de Convocatorias**: Sistema completo de convocatorias con estados automáticos
+- **📢 Gestión de Convocatorias**: Sistema avanzado con estados automáticos y manuales
 - **🔐 Autenticación JWT**: Sistema de autenticación seguro con tokens JWT
-- **📊 Base de Datos**: PostgreSQL con Entity Framework Core
+- **☁️ Base de Datos en la Nube**: PostgreSQL en Supabase
 - **📚 Documentación**: Swagger/OpenAPI integrado
 - **🛡️ Seguridad**: Validación de datos y manejo de errores
 - **🌐 CORS**: Configurado para integraciones frontend
+- **🎯 Estados Flexibles**: Control manual y automático de estados de convocatorias
 
 ## 🛠️ Stack Tecnológico
 
 - **.NET 9**: Framework principal
 - **ASP.NET Core**: API REST
-- **Entity Framework Core**: ORM
-- **PostgreSQL**: Base de datos
-- **JWT**: Autenticación
-- **BCrypt**: Hasheo de contraseñas
-- **Swagger**: Documentación de API
-- **Npgsql**: Driver PostgreSQL
-
-## 🏗️ Arquitectura
-
-```
-BackInovationMap/
-├── Controllers/         # Controladores de API
-│   ├── AuthController.cs
-│   ├── CompaniesController.cs
-│   └── ConvocatoriasController.cs
-├── Data/               # Contexto de base de datos
-│   └── AppDbContext.cs
-├── DTOs/               # Objetos de transferencia de datos
-│   ├── AuthDto.cs
-│   └── ConvocatoriaDto.cs
-├── Models/             # Modelos de datos
-│   ├── Company.cs
-│   ├── Convocatoria.cs
-│   └── Usuario.cs
-├── Services/           # Servicios de negocio
-│   └── JwtService.cs
-├── Migrations/         # Migraciones de base de datos
-└── Program.cs          # Configuración principal
-```
+- **Entity Framework Core**: ORM con PostgreSQL
+- **Supabase**: Base de datos PostgreSQL en la nube
+- **JWT**: Autenticación y autorización
+- **BCrypt**: Hasheo seguro de contraseñas
+- **Swagger**: Documentación automática de API
+- **Npgsql**: Driver PostgreSQL optimizado
 
 ## 🚀 Instalación y Configuración
 
 ### Prerrequisitos
 
 - .NET 9 SDK
-- PostgreSQL 12+
+- Cuenta en Supabase (ya configurada)
 - Editor de código (Visual Studio, VS Code, etc.)
 
 ### 1. Clonar el Repositorio
@@ -61,154 +39,167 @@ git clone https://github.com/tu-usuario/BackInovationMap.git
 cd BackInovationMap
 ```
 
-### 2. Configurar Variables de Entorno
+### 2. Configuración de Base de Datos
 
-1. **Crear archivo .env** en la raíz del proyecto:
+✅ **La aplicación ya está configurada para conectarse a Supabase:**
 
-```bash
-# Variables de entorno para BackInovationMap
-TU_PASSWORD=tu_password_real_de_supabase
-```
+**Credenciales configuradas:**
+- **Host**: aws-0-us-east-2.pooler.supabase.com
+- **Puerto**: 5432
+- **Base de datos**: postgres
+- **Usuario**: postgres.jsddkeyspzigizepdvoy
+- **Contraseña**: Ide0qDV5AJeb83wL
 
-2. **Establecer variable de entorno** en PowerShell:
+> La configuración está en `appsettings.json` y `appsettings.Development.json`
 
-```powershell
-# Establecer la variable de entorno
-$env:TU_PASSWORD = "tu_password_real_de_supabase"
-
-# Verificar que se estableció
-echo $env:TU_PASSWORD
-```
-
-3. **Verificar configuración** en `appsettings.json`:
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "postgresql://postgres.jsddkeyspzigizepdvoy:${TU_PASSWORD}@aws-0-us-east-2.pooler.supabase.com:5432/postgres"
-  },
-  "JwtSettings": {
-    "SecretKey": "BackInovationMap_SuperSecret_Key_2025_MinLength32Characters!",
-    "Issuer": "BackInovationMap",
-    "Audience": "BackInovationMap",
-    "ExpirationHours": "24"
-  }
-}
-```
-
-> **Nota:** El programa automáticamente reemplaza `${TU_PASSWORD}` con el valor de la variable de entorno.
-
-### 3. Configurar Base de Datos (Alternativo Local)
-
-Si prefieres usar PostgreSQL local, edita `appsettings.json`:
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=innovation_map;Username=tu_usuario;Password=tu_password"
-  }
-}
-```
-
-### 4. Restaurar Dependencias
+### 3. Instalación y Ejecución
 
 ```bash
+# 1. Restaurar dependencias
 dotnet restore
-```
 
-### 5. Ejecutar Migraciones
+# 2. Compilar proyecto
+dotnet build
 
-```bash
+# 3. Aplicar migraciones (ya aplicadas a Supabase)
 dotnet ef database update
-```
 
-### 6. Ejecutar la Aplicación
-
-```bash
-# 1. Establecer la variable de entorno (importante!)
-$env:TU_PASSWORD = "tu_password_real_de_supabase"
-
-# 2. Verificar que se estableció
-echo $env:TU_PASSWORD
-
-# 3. Ejecutar la aplicación
+# 4. Ejecutar la aplicación
 dotnet run
 ```
 
-La API estará disponible en `http://localhost:5297`
+🎉 **La API estará disponible en:** `http://localhost:5297`
+
+### 4. Verificar Conexión
+
+Abre tu navegador en: `http://localhost:5297/swagger` para ver la documentación interactiva.
+
+## 🏗️ Arquitectura del Proyecto
+
+```
+BackInovationMap/
+├── Controllers/         # Controladores de API
+│   ├── AuthController.cs      # Autenticación y usuarios
+│   ├── CompaniesController.cs # Gestión de empresas
+│   └── ConvocatoriasController.cs # Gestión de convocatorias
+├── Data/               # Contexto de base de datos
+│   └── AppDbContext.cs        # Configuración EF Core
+├── DTOs/               # Objetos de transferencia de datos
+│   ├── AuthDto.cs            # DTOs de autenticación
+│   └── ConvocatoriaDto.cs    # DTOs de convocatorias
+├── Models/             # Modelos de entidad
+│   ├── Company.cs            # Modelo de empresa
+│   ├── Convocatoria.cs       # Modelo de convocatoria
+│   └── Usuario.cs            # Modelo de usuario
+├── Services/           # Servicios de negocio
+│   └── JwtService.cs         # Servicio JWT
+├── Migrations/         # Migraciones aplicadas a Supabase
+└── Program.cs          # Configuración y startup
+```
 
 ## 📖 Documentación de la API
 
-### Swagger UI
+### 🔍 Swagger UI
 
-Una vez que la aplicación esté ejecutándose, puedes acceder a la documentación interactiva en:
-
+**Documentación interactiva disponible en:**
 ```
 http://localhost:5297/swagger
 ```
 
-### Endpoints Principales
+### 📋 Endpoints Principales
 
 #### 🔐 Autenticación (`/api/auth`)
 
-| Método | Endpoint           | Descripción               |
-| ------ | ------------------ | ------------------------- |
-| POST   | `/register`        | Registrar nuevo usuario   |
-| POST   | `/login`           | Iniciar sesión            |
-| GET    | `/profile`         | Obtener perfil de usuario |
-| PUT    | `/change-password` | Cambiar contraseña        |
-| POST   | `/refresh-token`   | Refrescar token JWT       |
-| GET    | `/validate`        | Validar token             |
+| Método | Endpoint           | Descripción               | Requiere Auth |
+|--------|--------------------|--------------------------|--------------| 
+| POST   | `/register`        | Registrar nuevo usuario   | ❌            |
+| POST   | `/login`           | Iniciar sesión            | ❌            |
+| GET    | `/profile`         | Obtener perfil de usuario | ✅            |
+| PUT    | `/change-password` | Cambiar contraseña        | ✅            |
+| POST   | `/refresh-token`   | Refrescar token JWT       | ✅            |
+| GET    | `/validate`        | Validar token             | ✅            |
 
 #### 🏢 Empresas (`/api/companies`)
 
-| Método | Endpoint | Descripción                |
-| ------ | -------- | -------------------------- |
-| GET    | `/`      | Obtener todas las empresas |
-| GET    | `/{id}`  | Obtener empresa por ID     |
-| POST   | `/`      | Crear nueva empresa        |
-| PUT    | `/{id}`  | Actualizar empresa         |
-| DELETE | `/{id}`  | Eliminar empresa           |
+| Método | Endpoint | Descripción                | Requiere Auth |
+|--------|----------|----------------------------|--------------|
+| GET    | `/`      | Obtener todas las empresas | ❌            |
+| GET    | `/{id}`  | Obtener empresa por ID     | ❌            |
+| POST   | `/`      | Crear nueva empresa        | ✅            |
+| PUT    | `/{id}`  | Actualizar empresa         | ✅            |
+| DELETE | `/{id}`  | Eliminar empresa           | ✅            |
 
 #### 📢 Convocatorias (`/api/convocatorias`)
 
-| Método | Endpoint                 | Descripción                     |
-| ------ | ------------------------ | ------------------------------- |
-| GET    | `/`                      | Obtener todas las convocatorias |
-| GET    | `/{id}`                  | Obtener convocatoria por ID     |
-| POST   | `/`                      | Crear nueva convocatoria        |
-| PUT    | `/{id}`                  | Actualizar convocatoria         |
-| DELETE | `/{id}`                  | Eliminar convocatoria           |
-| GET    | `/activas`               | Obtener convocatorias activas   |
-| GET    | `/categoria/{categoria}` | Buscar por categoría            |
-| GET    | `/estado/{estado}`       | Buscar por estado               |
-| PUT    | `/{id}/estado`           | Actualizar solo estado          |
+| Método | Endpoint                    | Descripción                     | Requiere Auth |
+|--------|-----------------------------|----------------------------------|--------------|
+| GET    | `/`                         | Obtener todas las convocatorias | ❌            |
+| GET    | `/{id}`                     | Obtener convocatoria por ID     | ❌            |
+| POST   | `/`                         | Crear nueva convocatoria        | ✅            |
+| PUT    | `/{id}`                     | Actualizar convocatoria         | ✅            |
+| DELETE | `/{id}`                     | Eliminar convocatoria           | ✅            |
+| GET    | `/categoria/{categoria}`    | Buscar por categoría            | ❌            |
+| GET    | `/estado/{estado}`          | Buscar por estado               | ❌            |
+| GET    | `/por-empresa/{companyId}`  | Convocatorias por empresa       | ❌            |
+| PUT    | `/{id}/estado`              | **Cambio manual de estado**     | ✅            |
+| PUT    | `/{id}/estado/automatico`   | **Volver a estado automático**  | ✅            |
+| GET    | `/empresas-disponibles`     | Empresas para convocatorias     | ❌            |
 
-### Autenticación JWT
+### 🎯 Características Especiales de Convocatorias
 
-Para acceder a endpoints protegidos, incluye el token en el header:
+#### **Estados Inteligentes**
 
-```
+- **Automático**: Basado en fechas (pendiente → activa → cerrada)
+- **Manual**: Control total del estado independiente de fechas
+- **Híbrido**: Cambio entre modo manual y automático
+
+#### **Relación con Empresas**
+
+- Cada convocatoria puede estar asociada a una empresa
+- Filtrado por empresa convocante
+- Información completa de la empresa en las respuestas
+
+### 🔑 Autenticación JWT
+
+Para acceder a endpoints protegidos (✅), incluye el token en el header:
+
+```bash
 Authorization: Bearer tu_jwt_token_aqui
 ```
 
-### Ejemplo de Uso
+## 💡 Ejemplos de Uso
 
-#### Registrar Usuario
+### 📝 Registrar Usuario
 
 ```bash
 curl -X POST "http://localhost:5297/api/auth/register" \
   -H "Content-Type: application/json" \
   -d '{
     "nombre": "Juan",
-    "apellido": "Pérez",
+    "apellido": "Pérez", 
     "email": "juan@ejemplo.com",
     "password": "MiPassword123!",
     "confirmPassword": "MiPassword123!"
   }'
 ```
 
-#### Crear Convocatoria
+### 🏢 Crear Empresa
+
+```bash
+curl -X POST "http://localhost:5297/api/companies" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer tu_token" \
+  -d '{
+    "name": "TechCorp",
+    "description": "Empresa de tecnología e innovación",
+    "sector": "Tecnología",
+    "department": "Antioquia",
+    "url": "https://techcorp.com",
+    "logoUrl": "https://techcorp.com/logo.png"
+  }'
+```
+
+### 📢 Crear Convocatoria con Estado Manual
 
 ```bash
 curl -X POST "http://localhost:5297/api/convocatorias" \
@@ -217,158 +208,211 @@ curl -X POST "http://localhost:5297/api/convocatorias" \
   -d '{
     "titulo": "Convocatoria de Innovación Tecnológica",
     "descripcion": "Programa para startups tecnológicas",
-    "fechaInicio": "2024-01-15T00:00:00Z",
-    "fechaFin": "2024-12-31T23:59:59Z",
+    "fechaInicio": "2025-08-01T00:00:00Z",
+    "fechaFin": "2025-12-31T23:59:59Z",
     "categoria": "tecnología",
-    "entidad": "Ministerio de Ciencia",
-    "presupuesto": 100000,
+    "entidad": "TechCorp S.A.S",
+    "companyId": 1,
+    "presupuesto": 500000000,
+    "estado": "pendiente",
+    "estadoManual": true,
     "requisitos": ["Empresa constituida", "Proyecto innovador"]
   }'
 ```
 
-## 🔧 Configuración Avanzada
+### 🔄 Cambiar Estado Manualmente
 
-### Variables de Entorno
+```bash
+# Cambiar a estado manual
+curl -X PUT "http://localhost:5297/api/convocatorias/1/estado" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer tu_token" \
+  -d '{ "estado": "cerrada" }'
 
-Puedes configurar las siguientes variables de entorno:
+# Volver a estado automático
+curl -X PUT "http://localhost:5297/api/convocatorias/1/estado/automatico" \
+  -H "Authorization: Bearer tu_token"
+```
 
-- `ASPNETCORE_ENVIRONMENT`: Entorno de ejecución (Development, Production)
-- `ConnectionStrings__DefaultConnection`: Cadena de conexión a la base de datos
-- `Jwt__Key`: Clave secreta para JWT
-- `Jwt__ExpiryMinutes`: Tiempo de expiración del token
+## ☁️ Base de Datos - Supabase PostgreSQL
 
-### CORS
+### � Configuración Actual
 
-El proyecto incluye configuración CORS para permitir requests desde cualquier origen en desarrollo. Para producción, configura orígenes específicos en `Program.cs`.
+✅ **Conectado a Supabase PostgreSQL**
 
-### Logging
+**Detalles de conexión:**
+- **Proveedor**: Supabase (PostgreSQL en la nube)
+- **Región**: AWS US-East-2
+- **Base de datos**: postgres
+- **Pooler**: Habilitado para máximo rendimiento
 
-El sistema incluye logging integrado. Los logs se muestran en consola en desarrollo.
+### 📋 Migraciones Aplicadas
 
-## 🗄️ Base de Datos
+- ✅ **InitialCreate** - Tablas básicas (Users, Companies, Convocatorias)
+- ✅ **AddEstadoManualToConvocatoria** - Control manual de estados
 
-### Modelo de Datos
+### 🗄️ Modelo de Datos
 
-#### Usuario
-
+#### **Usuario**
 - ID, Nombre, Apellido, Email
 - Password (hasheado con BCrypt)
 - Rol, Organización, Teléfono
 - Fechas de creación y último login
 
-#### Empresa
-
+#### **Empresa**
 - ID, Nombre, Descripción, Sector
 - URL, Logo, Departamento
 - Fecha de creación
 
-#### Convocatoria
-
+#### **Convocatoria**
 - ID, Título, Descripción
 - Fechas de inicio y fin
 - Categoría, Entidad, Presupuesto
-- Estado (activa/cerrada/pendiente)
-- Requisitos (lista de strings)
+- **Estado** (activa/cerrada/pendiente)
+- **EstadoManual** (control automático/manual)
+- **CompanyId** (empresa convocante)
+- Requisitos (array de strings)
 - Fechas de creación y actualización
 
-### Migraciones
-
-Para crear nuevas migraciones:
+### 🔧 Gestión de Migraciones
 
 ```bash
+# Ver migraciones pendientes
+dotnet ef migrations list
+
+# Crear nueva migración
 dotnet ef migrations add NombreMigracion
+
+# Aplicar migraciones
 dotnet ef database update
+
+# Rollback a migración específica
+dotnet ef database update NombreMigracionAnterior
 ```
 
-## 🧪 Testing
+## 🛡️ Seguridad y Mejores Prácticas
 
-### Endpoints de Prueba
+### 🔒 Seguridad Implementada
 
-La API incluye endpoints de prueba para verificar el funcionamiento:
+- **✅ Hasheo de Contraseñas**: BCrypt con salt automático
+- **✅ JWT Seguro**: Tokens con expiración y claves robustas
+- **✅ Validación de Datos**: Validaciones en DTOs y modelos
+- **✅ Manejo de Errores**: Responses consistentes y sin información sensible
+- **✅ CORS Configurado**: Protección contra requests no autorizados
+- **✅ Base de Datos Segura**: Conexión cifrada a Supabase
+
+### 🛠️ Configuración de Seguridad
+
+```json
+{
+  "JwtSettings": {
+    "SecretKey": "BackInovationMap_SuperSecret_Key_2025_MinLength32Characters!",
+    "Issuer": "BackInovationMap",
+    "Audience": "BackInovationMap", 
+    "ExpirationHours": "24"
+  }
+}
+```
+
+### 💡 Recomendaciones para Producción
+
+1. **🔐 Variables de Entorno**: Nunca hardcodees credenciales
+2. **🌐 HTTPS**: Siempre usa HTTPS en producción  
+3. **⏱️ Rate Limiting**: Implementa límites de requests por IP
+4. **📝 Logging**: Configura logs centralizados
+5. **🔄 Backup**: Configura respaldos automáticos en Supabase
+
+## 🧪 Testing y Desarrollo
+
+### 🔍 Endpoints de Prueba
 
 ```bash
 # Verificar estado de la API
-curl http://localhost:5297/api/auth/test
+curl http://localhost:5297/api/companies
 
-# Obtener todas las convocatorias
+# Verificar autenticación
+curl http://localhost:5297/api/auth/validate \
+  -H "Authorization: Bearer tu_token"
+
+# Verificar convocatorias
 curl http://localhost:5297/api/convocatorias
 ```
 
-### Datos de Prueba
+### 📊 Monitoreo
 
-Para crear datos de prueba, puedes usar los endpoints POST con datos ficticios o crear un seeder personalizado.
+- **Swagger UI**: `http://localhost:5297/swagger`
+- **Health Check**: Endpoints públicos responden con datos
+- **Logs**: Consola en desarrollo, configurables para producción
 
-## 🔒 Seguridad
+## 🚀 Deployment y Producción
 
-### Buenas Prácticas Implementadas
-
-- **Hasheo de Contraseñas**: BCrypt con salt automático
-- **JWT Seguro**: Tokens con expiración y claves robustas
-- **Validación de Datos**: Validaciones en DTOs y modelos
-- **Manejo de Errores**: Responses consistentes y sin información sensible
-- **CORS Configurado**: Protección contra requests no autorizados
-
-### Recomendaciones de Seguridad
-
-1. **Claves Secretas**: Usa claves largas y complejas para JWT
-2. **HTTPS**: Siempre usa HTTPS en producción
-3. **Variables de Entorno**: No hardcodees credenciales
-4. **Rate Limiting**: Implementa límites de requests por IP
-5. **Validation**: Siempre valida datos de entrada
-
-## 🚀 Deployment
-
-### Desarrollo
+### 🏠 Desarrollo Local
 
 ```bash
+# Ejecutar en modo desarrollo
 dotnet run --environment Development
+
+# Con puerto específico
+dotnet run --urls "http://localhost:5001"
 ```
 
-### Producción
+### 📦 Producción
 
 ```bash
+# Compilar para producción
 dotnet publish -c Release -o ./publish
+
+# Ejecutar build de producción
 dotnet ./publish/BackInovationMap.dll
 ```
 
-### Docker (Opcional)
+### ☁️ Despliegue en la Nube
 
-```dockerfile
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
-WORKDIR /app
-COPY ./publish .
-EXPOSE 80
-ENTRYPOINT ["dotnet", "BackInovationMap.dll"]
-```
+El proyecto está listo para desplegar en:
+- **Azure App Service**
+- **AWS Elastic Beanstalk** 
+- **Google Cloud Run**
+- **Railway**, **Render**, **Fly.io**
 
-## 🤝 Contribución
+> La base de datos ya está en Supabase, solo necesitas desplegar la API.
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+## 📞 Contacto y Soporte
 
-## 📝 Licencia
+### 👨‍💻 Información del Desarrollador
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+- **Desarrollador**: Juan [Tu Nombre]
+- **Proyecto**: BackInovationMap - API de Gestión de Innovación
+- **Universidad**: EAFIT - Especialización
+- **Año**: 2025
 
-## 📞 Contacto
+### 🔗 Enlaces Útiles
 
-- **Desarrollador**: Tu Nombre
-- **Email**: tu.email@ejemplo.com
-- **GitHub**: [@tu-usuario](https://github.com/tu-usuario)
-- **LinkedIn**: [Tu Perfil](https://linkedin.com/in/tu-perfil)
+- **📖 Documentación**: `http://localhost:5297/swagger`
+- **☁️ Base de Datos**: [Supabase Dashboard](https://supabase.com/dashboard)
+- **🛠️ Entity Framework**: [Documentación oficial](https://docs.microsoft.com/ef/)
+
+## 🎯 Estado del Proyecto
+
+**✅ COMPLETADO Y FUNCIONAL**
+
+- Backend API completo ✅
+- Base de datos Supabase conectada ✅  
+- Autenticación JWT implementada ✅
+- CRUD de empresas y convocatorias ✅
+- Estados manuales/automáticos ✅
+- Documentación completa ✅
+- Listo para integración con frontend ✅
 
 ## 🙏 Agradecimientos
 
-- Comunidad .NET por las excelentes herramientas
-- Entity Framework Core por el ORM robusto
-- PostgreSQL por la base de datos confiable
-- Swagger por la documentación automática
+- **EAFIT** - Universidad por la formación académica
+- **Supabase** - Por la infraestructura de base de datos
+- **Microsoft** - Por .NET y Entity Framework Core
+- **Comunidad .NET** - Por las herramientas y documentación
+- **PostgreSQL** - Por la base de datos robusta y confiable
 
 ---
 
 ⭐ **¡No olvides darle una estrella al proyecto si te fue útil!** ⭐
-#   B a c k I n o v a t i o n M a p  
+#   B a c k I n o v a t i o n M a p 
  
