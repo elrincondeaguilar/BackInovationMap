@@ -284,20 +284,34 @@ namespace BackInovationMap.Controllers
 
         [HttpGet("empresas-disponibles")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public IActionResult GetEmpresasDisponibles()
         {
-            var empresas = _context.Companies
-                .Select(c => new
+            try
+            {
+                var empresas = _context.Companies
+                    .Select(c => new
+                    {
+                        c.Id,
+                        c.Name,
+                        c.Sector,
+                        c.LogoUrl,
+                        c.Description
+                    })
+                    .OrderBy(c => c.Name)
+                    .ToList();
+                    
+                return Ok(empresas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
                 {
-                    c.Id,
-                    c.Name,
-                    c.Sector,
-                    c.LogoUrl,
-                    c.Description
-                })
-                .OrderBy(c => c.Name)
-                .ToList();
-            return Ok(empresas);
+                    error = "Error retrieving companies",
+                    message = ex.Message,
+                    timestamp = DateTime.UtcNow
+                });
+            }
         }
 
         [HttpGet("por-empresa/{companyId}")]

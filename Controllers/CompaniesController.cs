@@ -18,6 +18,31 @@ namespace BackInovationMap.Controllers
         [HttpGet]
         public IActionResult Get() => Ok(_context.Companies.ToList());
 
+        [HttpGet("health")]
+        public IActionResult Health()
+        {
+            try
+            {
+                var count = _context.Companies.Count();
+                return Ok(new
+                {
+                    status = "healthy",
+                    message = "Backend is running correctly",
+                    companiesCount = count,
+                    timestamp = DateTime.UtcNow
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    status = "unhealthy",
+                    message = ex.Message,
+                    timestamp = DateTime.UtcNow
+                });
+            }
+        }
+
         [HttpPost]
         public IActionResult Post([FromBody] Company company)
         {
