@@ -455,3 +455,12 @@ Thumbs.db
 *.local
 test-*.html
 debug-*.html
+
+# Temporary scripts and documentation files
+load-*.ps1
+load-*.sh
+*-IMPLEMENTATION-SUMMARY.md
+*-Documentation.md
+API-*.md
+temp-*.md
+draft-*.md
