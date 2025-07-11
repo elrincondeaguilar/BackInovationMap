@@ -11,23 +11,37 @@ namespace BackInovationMap.Controllers
     public class ConvocatoriasController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly ILogger<ConvocatoriasController> _logger;
 
-        public ConvocatoriasController(AppDbContext context)
+        public ConvocatoriasController(AppDbContext context, ILogger<ConvocatoriasController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet]
         [ProducesResponseType(200)]
         public IActionResult Get()
         {
-            var convocatorias = _context.Convocatorias
-                .Include(c => c.Company)
-                .OrderByDescending(c => c.CreatedAt)
-                .ToList()
-                .Select(c => MapToResponse(c))
-                .ToList();
-            return Ok(convocatorias);
+            try
+            {
+                _logger.LogInformation("GET /api/convocatorias - Request received");
+                
+                var convocatorias = _context.Convocatorias
+                    .Include(c => c.Company)
+                    .OrderByDescending(c => c.CreatedAt)
+                    .ToList()
+                    .Select(c => MapToResponse(c))
+                    .ToList();
+                
+                _logger.LogInformation("GET /api/convocatorias - Found {Count} convocatorias", convocatorias.Count);
+                return Ok(convocatorias);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in GET /api/convocatorias");
+                return StatusCode(500, new { error = "Internal server error", message = ex.Message });
+            }
         }
 
         [HttpGet("{id}")]
@@ -50,65 +64,80 @@ namespace BackInovationMap.Controllers
         [ProducesResponseType(400)]
         public IActionResult Post([FromBody] CreateConvocatoriaRequest request)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
-
-            // Validar fechas
-            if (request.FechaInicio >= request.FechaFin)
-            {
-                return BadRequest("La fecha de inicio debe ser anterior a la fecha de fin.");
-            }
-
-            // Validar que la empresa existe si se proporciona CompanyId
-            if (request.CompanyId.HasValue)
-            {
-                var companyExists = _context.Companies.Any(c => c.Id == request.CompanyId.Value);
-                if (!companyExists)
+                _logger.LogInformation("POST /api/convocatorias - Request received: {@Request}", request);
+                
+                if (!ModelState.IsValid)
                 {
-                    return BadRequest($"La empresa con ID {request.CompanyId.Value} no existe.");
+                    _logger.LogWarning("POST /api/convocatorias - Invalid model state: {@ModelState}", ModelState);
+                    return BadRequest(ModelState);
                 }
+
+                // Validar fechas
+                if (request.FechaInicio >= request.FechaFin)
+                {
+                    _logger.LogWarning("POST /api/convocatorias - Invalid dates: Start={Start}, End={End}", request.FechaInicio, request.FechaFin);
+                    return BadRequest("La fecha de inicio debe ser anterior a la fecha de fin.");
+                }
+
+                // Validar que la empresa existe si se proporciona CompanyId
+                if (request.CompanyId.HasValue)
+                {
+                    var companyExists = _context.Companies.Any(c => c.Id == request.CompanyId.Value);
+                    if (!companyExists)
+                    {
+                        _logger.LogWarning("POST /api/convocatorias - Company not found: {CompanyId}", request.CompanyId.Value);
+                        return BadRequest($"La empresa con ID {request.CompanyId.Value} no existe.");
+                    }
+                    _logger.LogInformation("POST /api/convocatorias - Company {CompanyId} validated", request.CompanyId.Value);
+                }
+
+                var convocatoria = new Convocatoria
+                {
+                    Titulo = request.Titulo,
+                    Descripcion = request.Descripcion,
+                    FechaInicio = request.FechaInicio,
+                    FechaFin = request.FechaFin,
+                    Categoria = request.Categoria,
+                    Entidad = request.Entidad,
+                    CompanyId = request.CompanyId,
+                    Presupuesto = request.Presupuesto,
+                    Requisitos = request.Requisitos ?? new List<string>(),
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+
+                // Establecer estado: manual si se proporciona, automático si no
+                if (!string.IsNullOrEmpty(request.EstadoInicial))
+                {
+                    EstablecerEstado(convocatoria, true, request.EstadoInicial);
+                }
+                else if (request.EstadoManual && !string.IsNullOrEmpty(request.Estado))
+                {
+                    EstablecerEstado(convocatoria, true, request.Estado);
+                }
+                else
+                {
+                    EstablecerEstado(convocatoria);
+                }
+
+                _context.Convocatorias.Add(convocatoria);
+                _context.SaveChanges();
+
+                // Recargar con la empresa para la respuesta
+                var savedConvocatoria = _context.Convocatorias
+                    .Include(c => c.Company)
+                    .FirstOrDefault(c => c.Id == convocatoria.Id);
+
+                _logger.LogInformation("POST /api/convocatorias - Created convocatoria with ID {Id}", convocatoria.Id);
+                return CreatedAtAction(nameof(GetById), new { id = convocatoria.Id }, MapToResponse(savedConvocatoria!));
             }
-
-            var convocatoria = new Convocatoria
+            catch (Exception ex)
             {
-                Titulo = request.Titulo,
-                Descripcion = request.Descripcion,
-                FechaInicio = request.FechaInicio,
-                FechaFin = request.FechaFin,
-                Categoria = request.Categoria,
-                Entidad = request.Entidad,
-                CompanyId = request.CompanyId,
-                Presupuesto = request.Presupuesto,
-                Requisitos = request.Requisitos ?? new List<string>(),
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
-
-            // Establecer estado: manual si se proporciona, automático si no
-            if (!string.IsNullOrEmpty(request.EstadoInicial))
-            {
-                EstablecerEstado(convocatoria, true, request.EstadoInicial);
+                _logger.LogError(ex, "Error in POST /api/convocatorias");
+                return StatusCode(500, new { error = "Internal server error", message = ex.Message });
             }
-            else if (request.EstadoManual && !string.IsNullOrEmpty(request.Estado))
-            {
-                EstablecerEstado(convocatoria, true, request.Estado);
-            }
-            else
-            {
-                EstablecerEstado(convocatoria);
-            }
-
-            _context.Convocatorias.Add(convocatoria);
-            _context.SaveChanges();
-
-            // Recargar con la empresa para la respuesta
-            var savedConvocatoria = _context.Convocatorias
-                .Include(c => c.Company)
-                .FirstOrDefault(c => c.Id == convocatoria.Id);
-
-            return CreatedAtAction(nameof(GetById), new { id = convocatoria.Id }, MapToResponse(savedConvocatoria!));
         }
 
         [HttpPut("{id}")]
@@ -326,6 +355,34 @@ namespace BackInovationMap.Controllers
                 .Select(c => MapToResponse(c))
                 .ToList();
             return Ok(convocatorias);
+        }
+
+        [HttpGet("health")]
+        [ProducesResponseType(200)]
+        public IActionResult HealthCheck()
+        {
+            try
+            {
+                var count = _context.Convocatorias.Count();
+                var companiesCount = _context.Companies.Count();
+                
+                return Ok(new { 
+                    status = "healthy",
+                    convocatorias_count = count,
+                    companies_count = companiesCount,
+                    timestamp = DateTime.UtcNow,
+                    message = "Convocatorias controller is working"
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in convocatorias health check");
+                return StatusCode(500, new { 
+                    status = "unhealthy", 
+                    error = ex.Message,
+                    timestamp = DateTime.UtcNow 
+                });
+            }
         }
 
         // Método helper para determinar el estado automático basado en fechas
