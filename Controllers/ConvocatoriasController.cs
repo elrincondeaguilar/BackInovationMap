@@ -26,14 +26,14 @@ namespace BackInovationMap.Controllers
             try
             {
                 _logger.LogInformation("GET /api/convocatorias - Request received");
-                
+
                 var convocatorias = _context.Convocatorias
                     .Include(c => c.Company)
                     .OrderByDescending(c => c.CreatedAt)
                     .ToList()
                     .Select(c => MapToResponse(c))
                     .ToList();
-                
+
                 _logger.LogInformation("GET /api/convocatorias - Found {Count} convocatorias", convocatorias.Count);
                 return Ok(convocatorias);
             }
@@ -67,7 +67,7 @@ namespace BackInovationMap.Controllers
             try
             {
                 _logger.LogInformation("POST /api/convocatorias - Request received: {@Request}", request);
-                
+
                 if (!ModelState.IsValid)
                 {
                     _logger.LogWarning("POST /api/convocatorias - Invalid model state: {@ModelState}", ModelState);
@@ -365,8 +365,9 @@ namespace BackInovationMap.Controllers
             {
                 var count = _context.Convocatorias.Count();
                 var companiesCount = _context.Companies.Count();
-                
-                return Ok(new { 
+
+                return Ok(new
+                {
                     status = "healthy",
                     convocatorias_count = count,
                     companies_count = companiesCount,
@@ -377,10 +378,11 @@ namespace BackInovationMap.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error in convocatorias health check");
-                return StatusCode(500, new { 
-                    status = "unhealthy", 
+                return StatusCode(500, new
+                {
+                    status = "unhealthy",
                     error = ex.Message,
-                    timestamp = DateTime.UtcNow 
+                    timestamp = DateTime.UtcNow
                 });
             }
         }

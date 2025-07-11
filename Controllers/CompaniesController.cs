@@ -102,7 +102,8 @@ namespace BackInovationMap.Controllers
         public IActionResult GetDebugInfo()
         {
             var companies = _context.Companies.ToList();
-            return Ok(new { 
+            return Ok(new
+            {
                 companies = companies,
                 count = companies.Count,
                 message = "Companies debug info"
