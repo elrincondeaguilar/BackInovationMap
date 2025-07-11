@@ -55,7 +55,8 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(
                 "http://localhost:3000",  // Next.js desarrollo
                 "http://localhost:3001",  // Next.js puerto alternativo
-                "https://localhost:3000" // Next.js con HTTPS
+                "https://localhost:3000", // Next.js con HTTPS
+                "https://innovation-map-frontend.vercel.app" // Frontend en producción
               )
               .AllowAnyMethod()
               .AllowAnyHeader()
