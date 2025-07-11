@@ -1,18 +1,43 @@
 @BackInovationMap_HostAddress = http://localhost:5297
 
-### Obtener todas las convocatorias
-GET {{BackInovationMap_HostAddress}}/api/convocatorias
+###
+# Authentication Endpoints
+###
+
+### Register new user
+POST {{BackInovationMap_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "email": "juan@test.com",
+  "password": "Test123!",
+  "confirmPassword": "Test123!"
+}
+
+### Login user
+POST {{BackInovationMap_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "juan@test.com",
+  "password": "Test123!"
+}
+
+###
+# Companies Endpoints
+###
+
+### Get all companies
+GET {{BackInovationMap_HostAddress}}/api/companies
 Accept: application/json
 
-### Obtener convocatorias activas
-GET {{BackInovationMap_HostAddress}}/api/convocatorias/activas
+### Get company by ID
+GET {{BackInovationMap_HostAddress}}/api/companies/1
 Accept: application/json
 
-### Obtener empresas disponibles para convocatorias
-GET {{BackInovationMap_HostAddress}}/api/convocatorias/empresas-disponibles
-Accept: application/json
-
-### Crear una nueva empresa (para asociar a convocatorias)
+### Create new company
 POST {{BackInovationMap_HostAddress}}/api/companies
 Content-Type: application/json
 
@@ -25,9 +50,31 @@ Content-Type: application/json
   "logoUrl": "https://techcorp.com/logo.png"
 }
 
-### Crear convocatoria asociada a una empresa
+###
+# Convocatorias Endpoints
+###
+
+### Get all convocatorias
+GET {{BackInovationMap_HostAddress}}/api/convocatorias
+Accept: application/json
+
+### Get active convocatorias
+GET {{BackInovationMap_HostAddress}}/api/convocatorias/activas
+Accept: application/json
+
+### Create new convocatoria
 POST {{BackInovationMap_HostAddress}}/api/convocatorias
 Content-Type: application/json
+
+{
+  "titulo": "Convocatoria de Innovación 2025",
+  "descripcion": "Programa de apoyo a startups tecnológicas",
+  "fechaInicio": "2025-01-15T00:00:00Z",
+  "fechaFin": "2025-03-15T00:00:00Z",
+  "monto": 50000000,
+  "companyId": 1,
+  "estadoManual": "Activa"
+}
 
 {
   "titulo": "Convocatoria de Innovación Tecnológica 2025",
