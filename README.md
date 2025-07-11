@@ -44,6 +44,7 @@ cd BackInovationMap
 ✅ **La aplicación ya está configurada para conectarse a Supabase:**
 
 **Credenciales configuradas:**
+
 - **Host**: aws-0-us-east-2.pooler.supabase.com
 - **Puerto**: 5432
 - **Base de datos**: postgres
@@ -102,6 +103,7 @@ BackInovationMap/
 ### 🔍 Swagger UI
 
 **Documentación interactiva disponible en:**
+
 ```
 http://localhost:5297/swagger
 ```
@@ -111,7 +113,7 @@ http://localhost:5297/swagger
 #### 🔐 Autenticación (`/api/auth`)
 
 | Método | Endpoint           | Descripción               | Requiere Auth |
-|--------|--------------------|--------------------------|--------------| 
+| ------ | ------------------ | ------------------------- | ------------- |
 | POST   | `/register`        | Registrar nuevo usuario   | ❌            |
 | POST   | `/login`           | Iniciar sesión            | ❌            |
 | GET    | `/profile`         | Obtener perfil de usuario | ✅            |
@@ -122,7 +124,7 @@ http://localhost:5297/swagger
 #### 🏢 Empresas (`/api/companies`)
 
 | Método | Endpoint | Descripción                | Requiere Auth |
-|--------|----------|----------------------------|--------------|
+| ------ | -------- | -------------------------- | ------------- |
 | GET    | `/`      | Obtener todas las empresas | ❌            |
 | GET    | `/{id}`  | Obtener empresa por ID     | ❌            |
 | POST   | `/`      | Crear nueva empresa        | ✅            |
@@ -131,19 +133,19 @@ http://localhost:5297/swagger
 
 #### 📢 Convocatorias (`/api/convocatorias`)
 
-| Método | Endpoint                    | Descripción                     | Requiere Auth |
-|--------|-----------------------------|----------------------------------|--------------|
-| GET    | `/`                         | Obtener todas las convocatorias | ❌            |
-| GET    | `/{id}`                     | Obtener convocatoria por ID     | ❌            |
-| POST   | `/`                         | Crear nueva convocatoria        | ✅            |
-| PUT    | `/{id}`                     | Actualizar convocatoria         | ✅            |
-| DELETE | `/{id}`                     | Eliminar convocatoria           | ✅            |
-| GET    | `/categoria/{categoria}`    | Buscar por categoría            | ❌            |
-| GET    | `/estado/{estado}`          | Buscar por estado               | ❌            |
-| GET    | `/por-empresa/{companyId}`  | Convocatorias por empresa       | ❌            |
-| PUT    | `/{id}/estado`              | **Cambio manual de estado**     | ✅            |
-| PUT    | `/{id}/estado/automatico`   | **Volver a estado automático**  | ✅            |
-| GET    | `/empresas-disponibles`     | Empresas para convocatorias     | ❌            |
+| Método | Endpoint                   | Descripción                     | Requiere Auth |
+| ------ | -------------------------- | ------------------------------- | ------------- |
+| GET    | `/`                        | Obtener todas las convocatorias | ❌            |
+| GET    | `/{id}`                    | Obtener convocatoria por ID     | ❌            |
+| POST   | `/`                        | Crear nueva convocatoria        | ✅            |
+| PUT    | `/{id}`                    | Actualizar convocatoria         | ✅            |
+| DELETE | `/{id}`                    | Eliminar convocatoria           | ✅            |
+| GET    | `/categoria/{categoria}`   | Buscar por categoría            | ❌            |
+| GET    | `/estado/{estado}`         | Buscar por estado               | ❌            |
+| GET    | `/por-empresa/{companyId}` | Convocatorias por empresa       | ❌            |
+| PUT    | `/{id}/estado`             | **Cambio manual de estado**     | ✅            |
+| PUT    | `/{id}/estado/automatico`  | **Volver a estado automático**  | ✅            |
+| GET    | `/empresas-disponibles`    | Empresas para convocatorias     | ❌            |
 
 ### 🎯 Características Especiales de Convocatorias
 
@@ -176,7 +178,7 @@ curl -X POST "http://localhost:5297/api/auth/register" \
   -H "Content-Type: application/json" \
   -d '{
     "nombre": "Juan",
-    "apellido": "Pérez", 
+    "apellido": "Pérez",
     "email": "juan@ejemplo.com",
     "password": "MiPassword123!",
     "confirmPassword": "MiPassword123!"
@@ -241,6 +243,7 @@ curl -X PUT "http://localhost:5297/api/convocatorias/1/estado/automatico" \
 ✅ **Conectado a Supabase PostgreSQL**
 
 **Detalles de conexión:**
+
 - **Proveedor**: Supabase (PostgreSQL en la nube)
 - **Región**: AWS US-East-2
 - **Base de datos**: postgres
@@ -254,17 +257,20 @@ curl -X PUT "http://localhost:5297/api/convocatorias/1/estado/automatico" \
 ### 🗄️ Modelo de Datos
 
 #### **Usuario**
+
 - ID, Nombre, Apellido, Email
 - Password (hasheado con BCrypt)
 - Rol, Organización, Teléfono
 - Fechas de creación y último login
 
 #### **Empresa**
+
 - ID, Nombre, Descripción, Sector
 - URL, Logo, Departamento
 - Fecha de creación
 
 #### **Convocatoria**
+
 - ID, Título, Descripción
 - Fechas de inicio y fin
 - Categoría, Entidad, Presupuesto
@@ -308,7 +314,7 @@ dotnet ef database update NombreMigracionAnterior
   "JwtSettings": {
     "SecretKey": "BackInovationMap_SuperSecret_Key_2025_MinLength32Characters!",
     "Issuer": "BackInovationMap",
-    "Audience": "BackInovationMap", 
+    "Audience": "BackInovationMap",
     "ExpirationHours": "24"
   }
 }
@@ -317,7 +323,7 @@ dotnet ef database update NombreMigracionAnterior
 ### 💡 Recomendaciones para Producción
 
 1. **🔐 Variables de Entorno**: Nunca hardcodees credenciales
-2. **🌐 HTTPS**: Siempre usa HTTPS en producción  
+2. **🌐 HTTPS**: Siempre usa HTTPS en producción
 3. **⏱️ Rate Limiting**: Implementa límites de requests por IP
 4. **📝 Logging**: Configura logs centralizados
 5. **🔄 Backup**: Configura respaldos automáticos en Supabase
@@ -369,8 +375,9 @@ dotnet ./publish/BackInovationMap.dll
 ### ☁️ Despliegue en la Nube
 
 El proyecto está listo para desplegar en:
+
 - **Azure App Service**
-- **AWS Elastic Beanstalk** 
+- **AWS Elastic Beanstalk**
 - **Google Cloud Run**
 - **Railway**, **Render**, **Fly.io**
 
@@ -381,6 +388,7 @@ El proyecto está listo para desplegar en:
 El proyecto está configurado para desplegarse fácilmente en Render:
 
 **Start Command para Render:**
+
 ```
 dotnet BackInovationMap.dll
 ```
@@ -388,6 +396,7 @@ dotnet BackInovationMap.dll
 **Ver guía completa:** [`DEPLOY_RENDER.md`](./DEPLOY_RENDER.md)
 
 **URLs después del despliegue:**
+
 - API: `https://tu-app.onrender.com`
 - Swagger: `https://tu-app.onrender.com/swagger`
 
@@ -411,7 +420,7 @@ dotnet BackInovationMap.dll
 **✅ COMPLETADO Y FUNCIONAL**
 
 - Backend API completo ✅
-- Base de datos Supabase conectada ✅  
+- Base de datos Supabase conectada ✅
 - Autenticación JWT implementada ✅
 - CRUD de empresas y convocatorias ✅
 - Estados manuales/automáticos ✅
