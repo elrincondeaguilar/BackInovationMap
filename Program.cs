@@ -66,9 +66,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configurar el puerto dinámico para Render
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-app.Urls.Add($"http://0.0.0.0:{port}");
+// Configurar el puerto dinámico para Render (solo en producción)
+if (!app.Environment.IsDevelopment())
+{
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+    app.Urls.Add($"http://0.0.0.0:{port}");
+}
+// En desarrollo, usa los puertos configurados en launchSettings.json
 
 // Middleware
 if (app.Environment.IsDevelopment())
