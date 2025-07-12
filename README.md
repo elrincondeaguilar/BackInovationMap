@@ -1,17 +1,25 @@
 # 🚀 BackInovationMap - API REST para Gestión de Innovación
 
-Una API REST robusta desarrollada en .NET 9 para la gestión de empresas, convocatorias y usuarios en plataformas de innovación. **Conectada a Supabase PostgreSQL** para máximo rendimiento y escalabilidad.
+Una API REST robusta desarrollada en .NET 9 para la gestión de empresas, convocatorias y usuarios en plataformas de innovación. **Desplegada en Render y conectada a Supabase PostgreSQL** para máximo rendimiento y escalabilidad.
+
+## 🌐 URLs de Producción
+
+- **🚀 API en Producción**: https://backinovationmap.onrender.com
+- **📚 Documentación Swagger**: https://backinovationmap.onrender.com/swagger
+- **📊 Estado de la API**: https://backinovationmap.onrender.com/api/companies/health
 
 ## ⭐ Características Principales
 
-- **🏢 Gestión de Empresas**: CRUD completo para empresas innovadoras
+- **🏢 Gestión de Empresas**: CRUD completo con health checks
 - **📢 Gestión de Convocatorias**: Sistema avanzado con estados automáticos y manuales
 - **🔐 Autenticación JWT**: Sistema de autenticación seguro con tokens JWT
-- **☁️ Base de Datos en la Nube**: PostgreSQL en Supabase
-- **📚 Documentación**: Swagger/OpenAPI integrado
-- **🛡️ Seguridad**: Validación de datos y manejo de errores
-- **🌐 CORS**: Configurado para integraciones frontend
+- **☁️ Base de Datos en la Nube**: PostgreSQL en Supabase con pooling automático
+- **📚 Documentación**: Swagger/OpenAPI integrado en desarrollo y producción
+- **🛡️ Seguridad**: Validación de datos, logging avanzado y manejo de errores
+- **🌐 CORS**: Configurado para localhost:3000 y Vercel production
 - **🎯 Estados Flexibles**: Control manual y automático de estados de convocatorias
+- **🔍 Health Checks**: Endpoints de monitoreo para producción
+- **📝 Logging Avanzado**: Tracking detallado de requests y errores
 
 ## 🛠️ Stack Tecnológico
 
@@ -39,19 +47,21 @@ git clone https://github.com/tu-usuario/BackInovationMap.git
 cd BackInovationMap
 ```
 
-### 2. Configuración de Base de Datos
+### 2. Configuración de Base de Datos Supabase
 
-✅ **La aplicación ya está configurada para conectarse a Supabase:**
+✅ **La aplicación ya está configurada y desplegada con conexión a Supabase:**
 
-**Credenciales configuradas:**
+**📊 Credenciales de Producción:**
 
-- **Host**: aws-0-us-east-2.pooler.supabase.com
-- **Puerto**: 5432
-- **Base de datos**: postgres
-- **Usuario**: postgres.jsddkeyspzigizepdvoy
-- **Contraseña**: Ide0qDV5AJeb83wL
+- 🔒 \*[Información sensible eliminada]\*\*\*: Ide0qDV5AJeb83wL
+- **Pooler**: Habilitado para máximo rendimiento
 
-> La configuración está en `appsettings.json` y `appsettings.Development.json`
+**🔧 Migraciones Aplicadas:**
+
+- ✅ **InitialCreate** - Tablas básicas (Users, Companies, Convocatorias)
+- ✅ **AddEstadoManualToConvocatoria** - Control manual de estados
+
+> La configuración está en `appsettings.json` y las migraciones ya están aplicadas en Supabase
 
 ### 3. Instalación y Ejecución
 
@@ -69,11 +79,22 @@ dotnet ef database update
 dotnet run
 ```
 
-🎉 **La API estará disponible en:** `http://localhost:5297`
+🎉 **La API estará disponible en:**
+
+- **Desarrollo**: `http://localhost:5297`
+- **Producción**: `https://backinovationmap.onrender.com`
 
 ### 4. Verificar Conexión
 
-Abre tu navegador en: `http://localhost:5297/swagger` para ver la documentación interactiva.
+**En desarrollo:**
+
+- Abre tu navegador en: `http://localhost:5297/swagger`
+
+**En producción:**
+
+- API: `https://backinovationmap.onrender.com/api/convocatorias`
+- Swagger: `https://backinovationmap.onrender.com/swagger`
+- Health Check: `https://backinovationmap.onrender.com/api/companies/health`
 
 ## 🏗️ Arquitectura del Proyecto
 
@@ -110,7 +131,15 @@ http://localhost:5297/swagger
 
 ### 📋 Endpoints Principales
 
-#### 🔐 Autenticación (`/api/auth`)
+#### � Health Checks
+
+| Método | Endpoint                    | Descripción                | Status |
+| ------ | --------------------------- | -------------------------- | ------ |
+| GET    | `/api/companies/health`     | Health check general       | ✅     |
+| GET    | `/api/convocatorias/health` | Health check convocatorias | ✅     |
+| GET    | `/api/companies/debug`      | Debug info empresas        | ✅     |
+
+#### �🔐 Autenticación (`/api/auth`)
 
 | Método | Endpoint           | Descripción               | Requiere Auth |
 | ------ | ------------------ | ------------------------- | ------------- |
@@ -123,29 +152,92 @@ http://localhost:5297/swagger
 
 #### 🏢 Empresas (`/api/companies`)
 
-| Método | Endpoint | Descripción                | Requiere Auth |
-| ------ | -------- | -------------------------- | ------------- |
-| GET    | `/`      | Obtener todas las empresas | ❌            |
-| GET    | `/{id}`  | Obtener empresa por ID     | ❌            |
-| POST   | `/`      | Crear nueva empresa        | ✅            |
-| PUT    | `/{id}`  | Actualizar empresa         | ✅            |
-| DELETE | `/{id}`  | Eliminar empresa           | ✅            |
+| Método | Endpoint  | Descripción                | Requiere Auth | Status |
+| ------ | --------- | -------------------------- | ------------- | ------ |
+| GET    | `/`       | Obtener todas las empresas | ❌            | ✅     |
+| GET    | `/{id}`   | Obtener empresa por ID     | ❌            | ✅     |
+| POST   | `/`       | Crear nueva empresa        | ✅            | ✅     |
+| PUT    | `/{id}`   | Actualizar empresa         | ✅            | ✅     |
+| DELETE | `/{id}`   | Eliminar empresa           | ✅            | ✅     |
+| GET    | `/health` | Health check               | ❌            | ✅     |
+| GET    | `/debug`  | Debug info                 | ❌            | ✅     |
 
 #### 📢 Convocatorias (`/api/convocatorias`)
 
-| Método | Endpoint                   | Descripción                     | Requiere Auth |
-| ------ | -------------------------- | ------------------------------- | ------------- |
-| GET    | `/`                        | Obtener todas las convocatorias | ❌            |
-| GET    | `/{id}`                    | Obtener convocatoria por ID     | ❌            |
-| POST   | `/`                        | Crear nueva convocatoria        | ✅            |
-| PUT    | `/{id}`                    | Actualizar convocatoria         | ✅            |
-| DELETE | `/{id}`                    | Eliminar convocatoria           | ✅            |
-| GET    | `/categoria/{categoria}`   | Buscar por categoría            | ❌            |
-| GET    | `/estado/{estado}`         | Buscar por estado               | ❌            |
-| GET    | `/por-empresa/{companyId}` | Convocatorias por empresa       | ❌            |
-| PUT    | `/{id}/estado`             | **Cambio manual de estado**     | ✅            |
-| PUT    | `/{id}/estado/automatico`  | **Volver a estado automático**  | ✅            |
-| GET    | `/empresas-disponibles`    | Empresas para convocatorias     | ❌            |
+| Método | Endpoint                   | Descripción                     | Requiere Auth | Status |
+| ------ | -------------------------- | ------------------------------- | ------------- | ------ |
+| GET    | `/`                        | Obtener todas las convocatorias | ❌            | ✅     |
+| GET    | `/{id}`                    | Obtener convocatoria por ID     | ❌            | ✅     |
+| POST   | `/`                        | **Crear nueva convocatoria**    | ❌            | ✅     |
+| PUT    | `/{id}`                    | Actualizar convocatoria         | ✅            | ✅     |
+| DELETE | `/{id}`                    | Eliminar convocatoria           | ✅            | ✅     |
+| GET    | `/categoria/{categoria}`   | Buscar por categoría            | ❌            | ✅     |
+| GET    | `/estado/{estado}`         | Buscar por estado               | ❌            | ✅     |
+| GET    | `/por-empresa/{companyId}` | Convocatorias por empresa       | ❌            | ✅     |
+| PUT    | `/{id}/estado`             | **Cambio manual de estado**     | ✅            | ✅     |
+| PUT    | `/{id}/estado/automatico`  | **Volver a estado automático**  | ✅            | ✅     |
+| GET    | `/empresas-disponibles`    | **Empresas para convocatorias** | ❌            | ✅     |
+| GET    | `/health`                  | **Health check**                | ❌            | ✅     |
+
+## � Frontend Integration
+
+### 📡 **CORS Configurado para:**
+
+- ✅ `http://localhost:3000` (Next.js desarrollo)
+- ✅ `http://localhost:3001` (puerto alternativo)
+- ✅ `https://localhost:3000` (HTTPS local)
+- ✅ `https://innovation-map-frontend.vercel.app` (producción)
+
+### 🚀 **Crear Convocatoria desde Frontend**
+
+**URL del endpoint:**
+
+```javascript
+POST https://backinovationmap.onrender.com/api/convocatorias
+```
+
+**Ejemplo de petición:**
+
+```javascript
+const crearConvocatoria = async (datosConvocatoria) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/convocatorias`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          Titulo: "Convocatoria de Innovación 2025",
+          Descripcion: "Programa de apoyo a startups tecnológicas",
+          FechaInicio: "2025-01-15T00:00:00Z",
+          FechaFin: "2025-03-15T00:00:00Z",
+          Categoria: "tecnología",
+          Entidad: "Isagen",
+          CompanyId: 1,
+          Presupuesto: 50000000,
+          Requisitos: ["Empresa constituida", "Proyecto innovador"],
+        }),
+      }
+    );
+
+    if (!response.ok) throw new Error(`Error ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error al crear convocatoria:", error);
+    throw error;
+  }
+};
+```
+
+**⚠️ Configuración Frontend:**
+
+```bash
+# Variable de entorno requerida en Vercel:
+NEXT_PUBLIC_API_URL=https://backinovationmap.onrender.com
+```
 
 ### 🎯 Características Especiales de Convocatorias
 
@@ -160,6 +252,7 @@ http://localhost:5297/swagger
 - Cada convocatoria puede estar asociada a una empresa
 - Filtrado por empresa convocante
 - Información completa de la empresa en las respuestas
+- Endpoint específico: `/api/convocatorias/empresas-disponibles`
 
 ### 🔑 Autenticación JWT
 
@@ -171,10 +264,23 @@ Authorization: Bearer tu_jwt_token_aqui
 
 ## 💡 Ejemplos de Uso
 
+### 🧪 **Probar Endpoints en Producción**
+
+```bash
+# 1. Health Check
+curl https://backinovationmap.onrender.com/api/companies/health
+
+# 2. Listar empresas disponibles
+curl https://backinovationmap.onrender.com/api/convocatorias/empresas-disponibles
+
+# 3. Listar convocatorias
+curl https://backinovationmap.onrender.com/api/convocatorias
+```
+
 ### 📝 Registrar Usuario
 
 ```bash
-curl -X POST "http://localhost:5297/api/auth/register" \
+curl -X POST "https://backinovationmap.onrender.com/api/auth/register" \
   -H "Content-Type: application/json" \
   -d '{
     "nombre": "Juan",
@@ -188,7 +294,7 @@ curl -X POST "http://localhost:5297/api/auth/register" \
 ### 🏢 Crear Empresa
 
 ```bash
-curl -X POST "http://localhost:5297/api/companies" \
+curl -X POST "https://backinovationmap.onrender.com/api/companies" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer tu_token" \
   -d '{
@@ -201,24 +307,21 @@ curl -X POST "http://localhost:5297/api/companies" \
   }'
 ```
 
-### 📢 Crear Convocatoria con Estado Manual
+### 📢 Crear Convocatoria
 
 ```bash
-curl -X POST "http://localhost:5297/api/convocatorias" \
+curl -X POST "https://backinovationmap.onrender.com/api/convocatorias" \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer tu_token" \
   -d '{
-    "titulo": "Convocatoria de Innovación Tecnológica",
-    "descripcion": "Programa para startups tecnológicas",
-    "fechaInicio": "2025-08-01T00:00:00Z",
-    "fechaFin": "2025-12-31T23:59:59Z",
-    "categoria": "tecnología",
-    "entidad": "TechCorp S.A.S",
-    "companyId": 1,
-    "presupuesto": 500000000,
-    "estado": "pendiente",
-    "estadoManual": true,
-    "requisitos": ["Empresa constituida", "Proyecto innovador"]
+    "Titulo": "Convocatoria de Innovación Tecnológica 2025",
+    "Descripcion": "Programa para startups tecnológicas",
+    "FechaInicio": "2025-01-15T00:00:00Z",
+    "FechaFin": "2025-03-15T00:00:00Z",
+    "Categoria": "tecnología",
+    "Entidad": "Isagen",
+    "CompanyId": 1,
+    "Presupuesto": 50000000,
+    "Requisitos": ["Empresa constituida", "Proyecto innovador"]
   }'
 ```
 
@@ -226,13 +329,13 @@ curl -X POST "http://localhost:5297/api/convocatorias" \
 
 ```bash
 # Cambiar a estado manual
-curl -X PUT "http://localhost:5297/api/convocatorias/1/estado" \
+curl -X PUT "https://backinovationmap.onrender.com/api/convocatorias/1/estado" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer tu_token" \
   -d '{ "estado": "cerrada" }'
 
 # Volver a estado automático
-curl -X PUT "http://localhost:5297/api/convocatorias/1/estado/automatico" \
+curl -X PUT "https://backinovationmap.onrender.com/api/convocatorias/1/estado/automatico" \
   -H "Authorization: Bearer tu_token"
 ```
 
@@ -312,7 +415,7 @@ dotnet ef database update NombreMigracionAnterior
 ```json
 {
   "JwtSettings": {
-    "SecretKey": "BackInovationMap_SuperSecret_Key_2025_MinLength32Characters!",
+    "SecretKey": "[ELIMINADO]",
     "Issuer": "BackInovationMap",
     "Audience": "BackInovationMap",
     "ExpirationHours": "24"
@@ -328,31 +431,75 @@ dotnet ef database update NombreMigracionAnterior
 4. **📝 Logging**: Configura logs centralizados
 5. **🔄 Backup**: Configura respaldos automáticos en Supabase
 
-## 🧪 Testing y Desarrollo
+### 🧪 Testing y Monitoreo
 
-### 🔍 Endpoints de Prueba
+#### 🔍 **Endpoints de Prueba en Producción**
 
 ```bash
 # Verificar estado de la API
-curl http://localhost:5297/api/companies
-
-# Verificar autenticación
-curl http://localhost:5297/api/auth/validate \
-  -H "Authorization: Bearer tu_token"
+curl https://backinovationmap.onrender.com/api/companies/health
 
 # Verificar convocatorias
-curl http://localhost:5297/api/convocatorias
+curl https://backinovationmap.onrender.com/api/convocatorias
+
+# Verificar empresas disponibles para convocatorias
+curl https://backinovationmap.onrender.com/api/convocatorias/empresas-disponibles
 ```
 
-### 📊 Monitoreo
+#### 📊 **Monitoreo**
 
-- **Swagger UI**: `http://localhost:5297/swagger`
+- **Swagger UI**: `https://backinovationmap.onrender.com/swagger`
 - **Health Check**: Endpoints públicos responden con datos
-- **Logs**: Consola en desarrollo, configurables para producción
+- **Logs**: Logging avanzado configurado en producción
+- **Database**: Supabase dashboard para monitoreo de BD
 
 ## 🚀 Deployment y Producción
 
-### 🏠 Desarrollo Local
+### ☁️ **Estado Actual de Producción**
+
+✅ **API completamente desplegada en Render:**
+
+- **URL de Producción**: https://backinovationmap.onrender.com
+- **Swagger en Producción**: https://backinovationmap.onrender.com/swagger
+- **Health Check**: https://backinovationmap.onrender.com/api/companies/health
+- **Base de Datos**: Supabase PostgreSQL conectada y operacional
+- **Redespliegue**: Automático con cada push a GitHub
+
+### 🔧 **Configuración de Render**
+
+El proyecto incluye configuración para Render:
+
+```dockerfile
+# Dockerfile
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+COPY ["BackInovationMap.csproj", "."]
+RUN dotnet restore "BackInovationMap.csproj"
+COPY . .
+RUN dotnet build "BackInovationMap.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "BackInovationMap.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+CMD ["dotnet", "BackInovationMap.dll"]
+```
+
+**Start Command en Render:**
+
+```bash
+dotnet BackInovationMap.dll
+```
+
+### 📦 Desarrollo Local vs Producción
+
+#### 🏠 **Desarrollo Local**
 
 ```bash
 # Ejecutar en modo desarrollo
@@ -360,45 +507,29 @@ dotnet run --environment Development
 
 # Con puerto específico
 dotnet run --urls "http://localhost:5001"
+
+# Swagger local disponible en:
+http://localhost:5297/swagger
 ```
 
-### 📦 Producción
+#### ☁️ **Producción (Render)**
 
-```bash
-# Compilar para producción
-dotnet publish -c Release -o ./publish
+- **URL**: https://backinovationmap.onrender.com
+- **Redespliegue**: Automático con cada `git push`
+- **Variables de entorno**: Configuradas en Render
+- **Base de datos**: Supabase PostgreSQL
+- **CORS**: Configurado para localhost y Vercel
 
-# Ejecutar build de producción
-dotnet ./publish/BackInovationMap.dll
-```
-
-### ☁️ Despliegue en la Nube
+### 🌐 **Otras plataformas**
 
 El proyecto está listo para desplegar en:
 
 - **Azure App Service**
 - **AWS Elastic Beanstalk**
 - **Google Cloud Run**
-- **Railway**, **Render**, **Fly.io**
+- **Railway**, **Fly.io**
 
 > La base de datos ya está en Supabase, solo necesitas desplegar la API.
-
-### ☁️ Despliegue en Render
-
-El proyecto está configurado para desplegarse fácilmente en Render:
-
-**Start Command para Render:**
-
-```
-dotnet BackInovationMap.dll
-```
-
-**Ver guía completa:** [`DEPLOY_RENDER.md`](./DEPLOY_RENDER.md)
-
-**URLs después del despliegue:**
-
-- API: `https://tu-app.onrender.com`
-- Swagger: `https://tu-app.onrender.com/swagger`
 
 ## 📞 Contacto y Soporte
 
@@ -411,31 +542,49 @@ dotnet BackInovationMap.dll
 
 ### 🔗 Enlaces Útiles
 
-- **📖 Documentación**: `http://localhost:5297/swagger`
+- **� API en Producción**: https://backinovationmap.onrender.com
+- **�📖 Documentación Swagger**: https://backinovationmap.onrender.com/swagger
 - **☁️ Base de Datos**: [Supabase Dashboard](https://supabase.com/dashboard)
 - **🛠️ Entity Framework**: [Documentación oficial](https://docs.microsoft.com/ef/)
+- **📦 Repositorio GitHub**: https://github.com/elrincondeaguilar/BackInovationMap
 
 ## 🎯 Estado del Proyecto
 
-**✅ COMPLETADO Y FUNCIONAL**
+**✅ COMPLETADO Y DESPLEGADO EN PRODUCCIÓN**
 
 - Backend API completo ✅
+- **Desplegado en Render** ✅ (`https://backinovationmap.onrender.com`)
 - Base de datos Supabase conectada ✅
 - Autenticación JWT implementada ✅
 - CRUD de empresas y convocatorias ✅
 - Estados manuales/automáticos ✅
+- **Health checks y monitoring** ✅
+- **Logging avanzado** ✅
+- **CORS para localhost y Vercel** ✅
 - Documentación completa ✅
 - Listo para integración con frontend ✅
 
+### 📊 **Datos de Producción**
+
+**Empresas disponibles**: 2 (Isagen, MinCiencias)  
+**Convocatorias**: 1 (Test Convocatoria)  
+**Uptime**: 24/7 en Render  
+**Base de datos**: PostgreSQL en Supabase
+
+### 🚀 **Para Frontend Developers**
+
+**URL de la API**: `https://backinovationmap.onrender.com`  
+**Documentación**: `https://backinovationmap.onrender.com/swagger`  
+**Variable de entorno**: `NEXT_PUBLIC_API_URL=https://backinovationmap.onrender.com`
+
 ## 🙏 Agradecimientos
 
-- **EAFIT** - Universidad por la formación académica
-- **Supabase** - Por la infraestructura de base de datos
-- **Microsoft** - Por .NET y Entity Framework Core
-- **Comunidad .NET** - Por las herramientas y documentación
-- **PostgreSQL** - Por la base de datos robusta y confiable
+- 👩‍🏫 **Prof. Marinellys Figueroa** – Por su orientación y acompañamiento en este proyecto
+- 👨‍💻 **Juan Fernando Aguilar Rincón** – Desarrollador del backend y autor del proyecto
+- 🏫 **EAFIT** – Universidad por la formación académica
 
 ---
 
 ⭐ **¡No olvides darle una estrella al proyecto si te fue útil!** ⭐
-#   B a c k I n o v a t i o n M a p 
+
+#
