@@ -415,7 +415,7 @@ dotnet ef database update NombreMigracionAnterior
 ```json
 {
   "JwtSettings": {
-    "SecretKey": "[ELIMINADO]",
+    "SecretKey": "*****",
     "Issuer": "BackInovationMap",
     "Audience": "BackInovationMap",
     "ExpirationHours": "24"
@@ -535,7 +535,7 @@ El proyecto está listo para desplegar en:
 
 ### 👨‍💻 Información del Desarrollador
 
-- **Desarrollador**: Juan [Tu Nombre]
+- **Desarrollador**: Juan Fernando Aguilar
 - **Proyecto**: BackInovationMap - API de Gestión de Innovación
 - **Universidad**: EAFIT - Especialización
 - **Año**: 2025
@@ -564,23 +564,9 @@ El proyecto está listo para desplegar en:
 - Documentación completa ✅
 - Listo para integración con frontend ✅
 
-### 📊 **Datos de Producción**
-
-**Empresas disponibles**: 2 (Isagen, MinCiencias)  
-**Convocatorias**: 1 (Test Convocatoria)  
-**Uptime**: 24/7 en Render  
-**Base de datos**: PostgreSQL en Supabase
-
-### 🚀 **Para Frontend Developers**
-
-**URL de la API**: `https://backinovationmap.onrender.com`  
-**Documentación**: `https://backinovationmap.onrender.com/swagger`  
-**Variable de entorno**: `NEXT_PUBLIC_API_URL=https://backinovationmap.onrender.com`
-
 ## 🙏 Agradecimientos
 
 - 👩‍🏫 **Prof. Marinellys Figueroa** – Por su orientación y acompañamiento en este proyecto
-- 👨‍💻 **Juan Fernando Aguilar Rincón** – Desarrollador del backend y autor del proyecto
 - 🏫 **EAFIT** – Universidad por la formación académica
 
 ---
