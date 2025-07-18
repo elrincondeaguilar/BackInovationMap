@@ -27,6 +27,16 @@ namespace BackInovationMap.Models
         [StringLength(100)]
         public string Entidad { get; set; } = string.Empty;
 
+        // Nuevos campos del modelo de BD
+        public string? Enlace { get; set; }
+        public string? Clasificacion { get; set; }
+        public string? LineaOportunidad { get; set; }
+        public string? PalabrasClave { get; set; }
+        
+        // Fechas alternativas para compatibilidad con el nuevo modelo
+        public DateTime? FechaApertura { get; set; }
+        public DateTime? FechaCierre { get; set; }
+
         // Relación con Company - Empresa convocante (opcional)
         public int? CompanyId { get; set; }
         public Company? Company { get; set; }

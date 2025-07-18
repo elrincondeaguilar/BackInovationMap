@@ -11,6 +11,11 @@ namespace BackInovationMap.Data
         public DbSet<Company> Companies { get; set; }
         public DbSet<Convocatoria> Convocatorias { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        
+        // Nuevas tablas
+        public DbSet<Promotor> Promotores { get; set; }
+        public DbSet<Articulador> Articuladores { get; set; }
+        public DbSet<PortafolioArco> PortafoliosArco { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
