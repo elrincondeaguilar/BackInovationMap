@@ -102,6 +102,9 @@ namespace BackInovationMap.Controllers
                 existingPortfolio.Cobertura = portfolio.Cobertura;
                 existingPortfolio.Departamento = portfolio.Departamento;
                 existingPortfolio.Enlace = portfolio.Enlace;
+                existingPortfolio.Ciudad = portfolio.Ciudad;
+                existingPortfolio.Latitud = portfolio.Latitud;
+                existingPortfolio.Longitud = portfolio.Longitud;
                 existingPortfolio.UpdatedAt = DateTime.UtcNow;
 
                 await _context.SaveChangesAsync();

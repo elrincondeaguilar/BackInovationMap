@@ -13,6 +13,17 @@ namespace BackInovationMap.Models
         
         public string? Enlace { get; set; }
         
+        // Campos geográficos para visualización en mapa
+        [StringLength(100)]
+        public string? Ciudad { get; set; }
+        
+        [StringLength(100)]
+        public string? Departamento { get; set; }
+        
+        public decimal? Latitud { get; set; }
+        
+        public decimal? Longitud { get; set; }
+        
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }

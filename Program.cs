@@ -43,6 +43,7 @@ builder.Services.AddAuthorization();
 
 // Registrar servicios
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IEcosystemMapService, EcosystemMapService>();
 
 // Habilitar Swagger para pruebas
 builder.Services.AddEndpointsApiExplorer();

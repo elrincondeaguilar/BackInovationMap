@@ -98,6 +98,10 @@ namespace BackInovationMap.Controllers
                 existingArticulador.Tipo = articulador.Tipo;
                 existingArticulador.Region = articulador.Region;
                 existingArticulador.Contacto = articulador.Contacto;
+                existingArticulador.Ciudad = articulador.Ciudad;
+                existingArticulador.Departamento = articulador.Departamento;
+                existingArticulador.Latitud = articulador.Latitud;
+                existingArticulador.Longitud = articulador.Longitud;
                 existingArticulador.UpdatedAt = DateTime.UtcNow;
 
                 await _context.SaveChangesAsync();

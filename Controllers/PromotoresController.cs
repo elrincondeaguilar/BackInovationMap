@@ -98,6 +98,10 @@ namespace BackInovationMap.Controllers
                 existingPromotor.Medio = promotor.Medio;
                 existingPromotor.Descripcion = promotor.Descripcion;
                 existingPromotor.Enlace = promotor.Enlace;
+                existingPromotor.Ciudad = promotor.Ciudad;
+                existingPromotor.Departamento = promotor.Departamento;
+                existingPromotor.Latitud = promotor.Latitud;
+                existingPromotor.Longitud = promotor.Longitud;
                 existingPromotor.UpdatedAt = DateTime.UtcNow;
 
                 await _context.SaveChangesAsync();
