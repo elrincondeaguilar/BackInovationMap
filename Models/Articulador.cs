@@ -29,6 +29,10 @@ namespace BackInovationMap.Models
         
         public decimal? Longitud { get; set; }
         
+        // Relaciones many-to-many
+        public ICollection<ArticuladorCompany>? ArticuladorCompanies { get; set; }
+        public ICollection<ArticuladorConvocatoria>? ArticuladorConvocatorias { get; set; }
+        
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }

@@ -24,6 +24,10 @@ namespace BackInovationMap.Models
         
         public decimal? Longitud { get; set; }
         
+        // Relaciones
+        public int? CompanyId { get; set; }  // Un promotor puede estar asociado a una empresa
+        public Company? Company { get; set; }
+        
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
