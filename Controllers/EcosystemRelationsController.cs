@@ -195,27 +195,6 @@ namespace BackInovationMap.Controllers
                 return StatusCode(500, new { error = "Error interno del servidor" });
             }
         }
-
-        /// <summary>
-        /// Obtener instrumentos ARCO relacionados con una convocatoria
-        /// </summary>
-        [HttpGet("convocatoria/{convocatoriaId}/portafolio-arco")]
-        public async Task<ActionResult<IEnumerable<PortafolioArco>>> GetPortafolioArcoByConvocatoria(int convocatoriaId)
-        {
-            try
-            {
-                var instrumentos = await _context.PortafoliosArco
-                    .Where(pa => pa.ConvocatoriaId == convocatoriaId)
-                    .ToListAsync();
-
-                return Ok(instrumentos);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error retrieving portafolio arco for convocatoria {ConvocatoriaId}", convocatoriaId);
-                return StatusCode(500, new { error = "Error interno del servidor" });
-            }
-        }
     }
 
     // DTOs para las requests

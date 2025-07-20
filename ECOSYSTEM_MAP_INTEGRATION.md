@@ -1,7 +1,7 @@
 # 🗺️ Integración del Mapa del Ecosistema - Backend
 
 ## 🎯 **Objetivo**
-Integrar todas las entidades del ecosistema de innovación (Companies, Promotores, Articuladores, PortafolioArco) en un mapa interactivo unificado con capacidades de filtrado avanzado.
+Integrar todas las entidades del ecosistema de innovación (Companies, Promotores, Articuladores) en un mapa interactivo unificado con capacidades de filtrado avanzado.
 
 ---
 
@@ -33,22 +33,12 @@ interface Articulador {
 }
 ```
 
-#### **PortafolioArco**
-```typescript
-interface PortafolioArco {
-  // ... campos existentes
-  ciudad?: string;        // 🆕 NUEVO - Ciudad
-  latitud?: number;       // 🆕 NUEVO - Coordenada latitud
-  longitud?: number;      // 🆕 NUEVO - Coordenada longitud
-}
-```
-
 ### 2️⃣ **Modelo Unificado del Ecosistema**
 
 ```typescript
 interface EcosystemMapItem {
   id: number;
-  type: "Company" | "Promotor" | "Articulador" | "PortafolioArco";
+  type: "Company" | "Promotor" | "Articulador";
   name: string;
   description?: string;
   category?: string;
@@ -82,7 +72,7 @@ GET /api/ecosystemmap
 GET /api/ecosystemmap/filtered?types=Company,Promotor&departamento=Antioquia&ciudad=Medellin
 ```
 **Parámetros de consulta:**
-- `types`: Tipos a incluir (`Company`, `Promotor`, `Articulador`, `PortafolioArco`)
+- `types`: Tipos a incluir (`Company`, `Promotor`, `Articulador`)
 - `departamento`: Filtrar por departamento
 - `ciudad`: Filtrar por ciudad
 - `sector`: Filtrar por sector (solo Companies)
@@ -95,7 +85,7 @@ GET /api/ecosystemmap/filter-options
 **Respuesta:**
 ```json
 {
-  "types": ["Company", "Promotor", "Articulador", "PortafolioArco"],
+  "types": ["Company", "Promotor", "Articulador"],
   "departamentos": ["Antioquia", "Cundinamarca", ...],
   "ciudades": ["Medellín", "Bogotá", "Cali", ...],
   "sectores": ["Tecnología", "Salud", ...],
@@ -110,12 +100,11 @@ GET /api/ecosystemmap/stats
 **Respuesta:**
 ```json
 {
-  "total": 150,
+  "total": 135,
   "byType": {
     "Company": 80,
     "Promotor": 25,
-    "Articulador": 30,
-    "PortafolioArco": 15
+    "Articulador": 30
   },
   "byDepartamento": {
     "Antioquia": 60,

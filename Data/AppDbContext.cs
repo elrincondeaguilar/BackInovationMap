@@ -15,7 +15,6 @@ namespace BackInovationMap.Data
         // Nuevas tablas
         public DbSet<Promotor> Promotores { get; set; }
         public DbSet<Articulador> Articuladores { get; set; }
-        public DbSet<PortafolioArco> PortafoliosArco { get; set; }
         
         // Tablas de relación
         public DbSet<ArticuladorCompany> ArticuladorCompanies { get; set; }
@@ -89,21 +88,6 @@ namespace BackInovationMap.Data
                 entity.HasIndex(e => e.Ciudad);
                 entity.HasIndex(e => e.Departamento);
                 entity.HasIndex(e => e.CompanyId);
-            });
-
-            // Configuración para PortafolioArco
-            modelBuilder.Entity<PortafolioArco>(entity =>
-            {
-                // Relación con Convocatoria (opcional)
-                entity.HasOne(pa => pa.Convocatoria)
-                    .WithMany()
-                    .HasForeignKey(pa => pa.ConvocatoriaId)
-                    .OnDelete(DeleteBehavior.SetNull);
-
-                // Índices para mejorar rendimiento
-                entity.HasIndex(e => e.Ciudad);
-                entity.HasIndex(e => e.Departamento);
-                entity.HasIndex(e => e.ConvocatoriaId);
             });
 
             // Configuración para Articulador

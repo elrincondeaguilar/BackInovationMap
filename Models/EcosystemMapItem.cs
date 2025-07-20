@@ -11,7 +11,7 @@ namespace BackInovationMap.Models
         
         [Required]
         [StringLength(50)]
-        public string Type { get; set; } = string.Empty; // "Company", "Promotor", "Articulador", "PortafolioArco"
+        public string Type { get; set; } = string.Empty; // "Company", "Promotor", "Articulador"
         
         [Required]
         [StringLength(200)]

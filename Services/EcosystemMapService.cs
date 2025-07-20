@@ -142,41 +142,6 @@ namespace BackInovationMap.Services
                     }));
                 }
 
-                // Incluir PortafolioArco si no se especifica filtro de tipo o si se incluye "PortafolioArco"
-                if (types == null || types.Contains("PortafolioArco", StringComparer.OrdinalIgnoreCase))
-                {
-                    var portfolios = await _context.PortafoliosArco
-                        .Where(pa => 
-                            (departamento == null || pa.Departamento == departamento) &&
-                            (ciudad == null || pa.Ciudad == ciudad) &&
-                            pa.Latitud != null && pa.Longitud != null)
-                        .ToListAsync();
-
-                    items.AddRange(portfolios.Select(pa => new EcosystemMapItem
-                    {
-                        Id = pa.Id,
-                        Type = "PortafolioArco",
-                        Name = pa.Instrumento ?? "Instrumento ARCO",
-                        Description = pa.Objetivo,
-                        Category = pa.TipoApoyo ?? "Instrumento",
-                        Ciudad = pa.Ciudad,
-                        Departamento = pa.Departamento,
-                        Latitud = pa.Latitud,
-                        Longitud = pa.Longitud,
-                        Enlace = pa.Enlace,
-                        CreatedAt = pa.CreatedAt,
-                        UpdatedAt = pa.UpdatedAt,
-                        Metadata = new Dictionary<string, object?>
-                        {
-                            ["entidad"] = pa.Entidad,
-                            ["instrumento"] = pa.Instrumento,
-                            ["tipoApoyo"] = pa.TipoApoyo,
-                            ["cobertura"] = pa.Cobertura,
-                            ["anio"] = pa.Anio
-                        }
-                    }));
-                }
-
                 _logger.LogInformation("Retrieved {Count} ecosystem items", items.Count);
                 return items.OrderBy(i => i.Name).ToList();
             }
