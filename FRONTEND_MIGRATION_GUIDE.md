@@ -5,8 +5,7 @@
 Se han agregado nuevas entidades y campos extendidos al backend .NET:
 
 ### 🆕 **Nuevas Entidades (Nuevos Endpoints)**
-1. **Promotores** - `/api/promotores`
-2. **Articuladores** - `/api/articuladores`
+1. **Articuladores** - `/api/articuladores`
 
 ### 🔧 **Entidades Extendidas (Endpoints Existentes)**
 1. **Companies** - `/api/companies` (campos adicionales)
@@ -15,25 +14,6 @@ Se han agregado nuevas entidades y campos extendidos al backend .NET:
 ---
 
 ## 🚀 **1. Nuevos Endpoints Disponibles**
-
-### **Promotores**
-```typescript
-// GET /api/promotores
-// GET /api/promotores/{id}
-// POST /api/promotores
-// PUT /api/promotores/{id}
-// DELETE /api/promotores/{id}
-// GET /api/promotores/health
-
-interface Promotor {
-  id: number;
-  medio?: string;          // max 200 chars
-  descripcion?: string;    // text
-  enlace?: string;         // text
-  createdAt: string;       // ISO date
-  updatedAt: string;       // ISO date
-}
-```
 
 ### **Articuladores**
 ```typescript
@@ -160,12 +140,12 @@ interface Convocatoria {
 
 ### **Paso 2: Crear Servicios para Nuevas Entidades (Opcional)**
 ```typescript
-// services/promotoresService.ts
-export const promotoresService = {
-  getAll: () => fetch('/api/promotores').then(r => r.json()),
-  getById: (id: number) => fetch(`/api/promotores/${id}`).then(r => r.json()),
-  create: (data: Partial<Promotor>) => 
-    fetch('/api/promotores', {
+// services/articuladoresService.ts
+export const articuladoresService = {
+  getAll: () => fetch('/api/articuladores').then(r => r.json()),
+  getById: (id: number) => fetch(`/api/articuladores/${id}`).then(r => r.json()),
+  create: (data: Partial<Articulador>) => 
+    fetch('/api/articuladores', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data)
@@ -216,7 +196,6 @@ npm run dev
 - ✅ Los nuevos campos aparecen como `null` o `undefined` (esperado)
 
 ### **Probar nuevos endpoints (opcional):**
-- 🆕 `GET /api/promotores` - debe retornar array vacío
 - 🆕 `GET /api/articuladores` - debe retornar array vacío
 
 ---

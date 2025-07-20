@@ -1,7 +1,7 @@
 # 🗺️ Integración del Mapa del Ecosistema - Backend
 
 ## 🎯 **Objetivo**
-Integrar todas las entidades del ecosistema de innovación (Companies, Promotores, Articuladores) en un mapa interactivo unificado con capacidades de filtrado avanzado.
+Integrar todas las entidades del ecosistema de innovación (Companies, Articuladores) en un mapa interactivo unificado con capacidades de filtrado avanzado.
 
 ---
 
@@ -38,7 +38,7 @@ interface Articulador {
 ```typescript
 interface EcosystemMapItem {
   id: number;
-  type: "Company" | "Promotor" | "Articulador";
+  type: "Company" | "Articulador";
   name: string;
   description?: string;
   category?: string;
@@ -72,7 +72,7 @@ GET /api/ecosystemmap
 GET /api/ecosystemmap/filtered?types=Company,Promotor&departamento=Antioquia&ciudad=Medellin
 ```
 **Parámetros de consulta:**
-- `types`: Tipos a incluir (`Company`, `Promotor`, `Articulador`)
+- `types`: Tipos a incluir (`Company`, `Articulador`)
 - `departamento`: Filtrar por departamento
 - `ciudad`: Filtrar por ciudad
 - `sector`: Filtrar por sector (solo Companies)
@@ -85,7 +85,7 @@ GET /api/ecosystemmap/filter-options
 **Respuesta:**
 ```json
 {
-  "types": ["Company", "Promotor", "Articulador"],
+  "types": ["Company", "Articulador"],
   "departamentos": ["Antioquia", "Cundinamarca", ...],
   "ciudades": ["Medellín", "Bogotá", "Cali", ...],
   "sectores": ["Tecnología", "Salud", ...],
@@ -100,10 +100,9 @@ GET /api/ecosystemmap/stats
 **Respuesta:**
 ```json
 {
-  "total": 135,
+  "total": 110,
   "byType": {
     "Company": 80,
-    "Promotor": 25,
     "Articulador": 30
   },
   "byDepartamento": {

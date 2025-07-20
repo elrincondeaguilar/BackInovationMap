@@ -174,27 +174,6 @@ namespace BackInovationMap.Controllers
                 return StatusCode(500, new { error = "Error interno del servidor" });
             }
         }
-
-        /// <summary>
-        /// Obtener promotores asociados a una empresa
-        /// </summary>
-        [HttpGet("company/{companyId}/promotores")]
-        public async Task<ActionResult<IEnumerable<Promotor>>> GetPromotoresByCompany(int companyId)
-        {
-            try
-            {
-                var promotores = await _context.Promotores
-                    .Where(p => p.CompanyId == companyId)
-                    .ToListAsync();
-
-                return Ok(promotores);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error retrieving promotores for company {CompanyId}", companyId);
-                return StatusCode(500, new { error = "Error interno del servidor" });
-            }
-        }
     }
 
     // DTOs para las requests

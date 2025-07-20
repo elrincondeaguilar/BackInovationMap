@@ -13,7 +13,6 @@ namespace BackInovationMap.Data
         public DbSet<Usuario> Usuarios { get; set; }
         
         // Nuevas tablas
-        public DbSet<Promotor> Promotores { get; set; }
         public DbSet<Articulador> Articuladores { get; set; }
         
         // Tablas de relación
@@ -73,21 +72,6 @@ namespace BackInovationMap.Data
                 entity.HasIndex(e => e.Rol);
                 entity.HasIndex(e => e.IsActive);
                 entity.HasIndex(e => e.CreatedAt);
-            });
-
-            // Configuración para Promotor
-            modelBuilder.Entity<Promotor>(entity =>
-            {
-                // Relación con Company (opcional)
-                entity.HasOne(p => p.Company)
-                    .WithMany()
-                    .HasForeignKey(p => p.CompanyId)
-                    .OnDelete(DeleteBehavior.SetNull);
-
-                // Índices para mejorar rendimiento
-                entity.HasIndex(e => e.Ciudad);
-                entity.HasIndex(e => e.Departamento);
-                entity.HasIndex(e => e.CompanyId);
             });
 
             // Configuración para Articulador

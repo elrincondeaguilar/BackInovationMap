@@ -79,37 +79,6 @@ namespace BackInovationMap.Services
                     }));
                 }
 
-                // Incluir Promotores si no se especifica filtro de tipo o si se incluye "Promotor"
-                if (types == null || types.Contains("Promotor", StringComparer.OrdinalIgnoreCase))
-                {
-                    var promotores = await _context.Promotores
-                        .Where(p => 
-                            (departamento == null || p.Departamento == departamento) &&
-                            (ciudad == null || p.Ciudad == ciudad) &&
-                            p.Latitud != null && p.Longitud != null)
-                        .ToListAsync();
-
-                    items.AddRange(promotores.Select(p => new EcosystemMapItem
-                    {
-                        Id = p.Id,
-                        Type = "Promotor",
-                        Name = p.Medio ?? "Promotor",
-                        Description = p.Descripcion,
-                        Category = "Medio de Promoción",
-                        Ciudad = p.Ciudad,
-                        Departamento = p.Departamento,
-                        Latitud = p.Latitud,
-                        Longitud = p.Longitud,
-                        Enlace = p.Enlace,
-                        CreatedAt = p.CreatedAt,
-                        UpdatedAt = p.UpdatedAt,
-                        Metadata = new Dictionary<string, object?>
-                        {
-                            ["medio"] = p.Medio
-                        }
-                    }));
-                }
-
                 // Incluir Articuladores si no se especifica filtro de tipo o si se incluye "Articulador"
                 if (types == null || types.Contains("Articulador", StringComparer.OrdinalIgnoreCase))
                 {
