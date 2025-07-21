@@ -11,19 +11,19 @@ namespace BackInovationMap.Models
     {
         public int ArticuladorId { get; set; }
         public Articulador Articulador { get; set; } = null!;
-        
+
         public int ConvocatoriaId { get; set; }
         public Convocatoria Convocatoria { get; set; } = null!;
-        
+
         // Metadatos de la relación
         [StringLength(100)]
         public string? Rol { get; set; }  // "Gestor", "Evaluador", "Coordinador", etc.
-        
+
         public DateTime FechaAsignacion { get; set; } = DateTime.UtcNow;
-        
+
         [StringLength(500)]
         public string? Responsabilidades { get; set; }
-        
+
         public bool Activo { get; set; } = true;
     }
 }

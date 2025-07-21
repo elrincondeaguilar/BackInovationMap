@@ -32,7 +32,7 @@ namespace BackInovationMap.Models
         public string? Clasificacion { get; set; }
         public string? LineaOportunidad { get; set; }
         public string? PalabrasClave { get; set; }
-        
+
         // Fechas alternativas para compatibilidad con el nuevo modelo
         public DateTime? FechaApertura { get; set; }
         public DateTime? FechaCierre { get; set; }

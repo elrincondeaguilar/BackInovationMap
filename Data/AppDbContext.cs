@@ -11,10 +11,10 @@ namespace BackInovationMap.Data
         public DbSet<Company> Companies { get; set; }
         public DbSet<Convocatoria> Convocatorias { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-        
+
         // Nuevas tablas
         public DbSet<Articulador> Articuladores { get; set; }
-        
+
         // Tablas de relación
         public DbSet<ArticuladorCompany> ArticuladorCompanies { get; set; }
         public DbSet<ArticuladorConvocatoria> ArticuladorConvocatorias { get; set; }

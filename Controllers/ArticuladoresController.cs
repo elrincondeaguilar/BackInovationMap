@@ -26,7 +26,7 @@ namespace BackInovationMap.Controllers
                 var articuladores = await _context.Articuladores
                     .OrderByDescending(a => a.CreatedAt)
                     .ToListAsync();
-                
+
                 _logger.LogInformation("Retrieved {Count} articuladores", articuladores.Count);
                 return Ok(articuladores);
             }
@@ -43,7 +43,7 @@ namespace BackInovationMap.Controllers
             try
             {
                 var articulador = await _context.Articuladores.FindAsync(id);
-                
+
                 if (articulador == null)
                 {
                     return NotFound(new { message = $"Articulador with ID {id} not found" });
@@ -65,7 +65,7 @@ namespace BackInovationMap.Controllers
             {
                 articulador.CreatedAt = DateTime.UtcNow;
                 articulador.UpdatedAt = DateTime.UtcNow;
-                
+
                 _context.Articuladores.Add(articulador);
                 await _context.SaveChangesAsync();
 
@@ -105,7 +105,7 @@ namespace BackInovationMap.Controllers
                 existingArticulador.UpdatedAt = DateTime.UtcNow;
 
                 await _context.SaveChangesAsync();
-                
+
                 _logger.LogInformation("Updated articulador with ID {Id}", id);
                 return NoContent();
             }
@@ -146,19 +146,21 @@ namespace BackInovationMap.Controllers
             try
             {
                 var count = _context.Articuladores.Count();
-                return Ok(new { 
+                return Ok(new
+                {
                     status = "healthy",
                     count = count,
-                    timestamp = DateTime.UtcNow 
+                    timestamp = DateTime.UtcNow
                 });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Health check failed for articuladores");
-                return StatusCode(500, new { 
-                    status = "unhealthy", 
+                return StatusCode(500, new
+                {
+                    status = "unhealthy",
                     error = ex.Message,
-                    timestamp = DateTime.UtcNow 
+                    timestamp = DateTime.UtcNow
                 });
             }
         }

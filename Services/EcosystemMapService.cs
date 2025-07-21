@@ -47,7 +47,7 @@ namespace BackInovationMap.Services
                 if (types == null || types.Contains("Company", StringComparer.OrdinalIgnoreCase))
                 {
                     var companies = await _context.Companies
-                        .Where(c => 
+                        .Where(c =>
                             (departamento == null || c.Department == departamento) &&
                             (ciudad == null || c.Ciudad == ciudad) &&
                             (sector == null || c.Sector == sector) &&
@@ -83,7 +83,7 @@ namespace BackInovationMap.Services
                 if (types == null || types.Contains("Articulador", StringComparer.OrdinalIgnoreCase))
                 {
                     var articuladores = await _context.Articuladores
-                        .Where(a => 
+                        .Where(a =>
                             (departamento == null || a.Departamento == departamento) &&
                             (ciudad == null || a.Ciudad == ciudad) &&
                             a.Latitud != null && a.Longitud != null)

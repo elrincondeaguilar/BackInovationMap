@@ -49,9 +49,9 @@ builder.Services.AddScoped<IEcosystemMapService, EcosystemMapService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo 
-    { 
-        Title = "BackInovationMap API", 
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "BackInovationMap API",
         Version = "v1",
         Description = "API REST para gestión de empresas y convocatorias de innovación"
     });

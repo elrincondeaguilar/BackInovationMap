@@ -56,15 +56,15 @@ namespace BackInovationMap.Controllers
             {
                 var items = await _ecosystemMapService.GetFilteredEcosystemItemsAsync(
                     types, departamento, ciudad, sector, categoria);
-                
-                _logger.LogInformation("Retrieved {Count} filtered ecosystem map items with filters: types={Types}, departamento={Departamento}, ciudad={Ciudad}, sector={Sector}, categoria={Categoria}", 
-                    items.Count, 
-                    types != null ? string.Join(",", types) : "all", 
-                    departamento ?? "all", 
-                    ciudad ?? "all", 
-                    sector ?? "all", 
+
+                _logger.LogInformation("Retrieved {Count} filtered ecosystem map items with filters: types={Types}, departamento={Departamento}, ciudad={Ciudad}, sector={Sector}, categoria={Categoria}",
+                    items.Count,
+                    types != null ? string.Join(",", types) : "all",
+                    departamento ?? "all",
+                    ciudad ?? "all",
+                    sector ?? "all",
                     categoria ?? "all");
-                
+
                 return Ok(items);
             }
             catch (Exception ex)
@@ -83,7 +83,7 @@ namespace BackInovationMap.Controllers
             try
             {
                 var allItems = await _ecosystemMapService.GetAllEcosystemItemsAsync();
-                
+
                 var filterOptions = new
                 {
                     types = new[] { "Company", "Promotor", "Articulador", "PortafolioArco" },
@@ -131,7 +131,7 @@ namespace BackInovationMap.Controllers
             try
             {
                 var allItems = await _ecosystemMapService.GetAllEcosystemItemsAsync();
-                
+
                 var stats = new
                 {
                     total = allItems.Count,
@@ -164,19 +164,21 @@ namespace BackInovationMap.Controllers
             try
             {
                 var items = await _ecosystemMapService.GetAllEcosystemItemsAsync();
-                return Ok(new { 
+                return Ok(new
+                {
                     status = "healthy",
                     totalItems = items.Count,
-                    timestamp = DateTime.UtcNow 
+                    timestamp = DateTime.UtcNow
                 });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Health check failed for ecosystem map");
-                return StatusCode(500, new { 
-                    status = "unhealthy", 
+                return StatusCode(500, new
+                {
+                    status = "unhealthy",
                     error = ex.Message,
-                    timestamp = DateTime.UtcNow 
+                    timestamp = DateTime.UtcNow
                 });
             }
         }

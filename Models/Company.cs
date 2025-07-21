@@ -9,7 +9,7 @@ namespace BackInovationMap.Models
         public string Sector { get; set; } = string.Empty;
         public string Department { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        
+
         // Nuevos campos del modelo actores_innovacion
         public string? TipoActor { get; set; } // articulador, habilitador, comunidad, etc.
         public string? Ciudad { get; set; }
@@ -17,7 +17,7 @@ namespace BackInovationMap.Models
         public string? Contacto { get; set; }
         public decimal? Latitud { get; set; }
         public decimal? Longitud { get; set; }
-        
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
