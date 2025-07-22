@@ -456,7 +456,8 @@ namespace BackInovationMap.Controllers
                 Requisitos = convocatoria.Requisitos,
                 CreatedAt = convocatoria.CreatedAt,
                 UpdatedAt = convocatoria.UpdatedAt,
-                DiasRestantes = diasRestantes
+            DiasRestantes = diasRestantes,
+            Enlace = convocatoria.Enlace
             };
         }
     }
