@@ -419,7 +419,6 @@ namespace BackInovationMap.Controllers
                 // Solo actualizar automáticamente si no fue establecido manualmente
                 convocatoria.Estado = DeterminarEstadoAutomatico(convocatoria.FechaInicio, convocatoria.FechaFin);
             }
-            // Si EstadoManual es true, mantener el estado actual sin cambios
         }
 
         // Método helper para mapear entidad a DTO de respuesta
