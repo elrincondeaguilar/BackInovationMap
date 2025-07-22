@@ -200,7 +200,10 @@ namespace BackInovationMap.Controllers
             _context.Convocatorias.Update(existingConvocatoria);
             _context.SaveChanges();
 
-            return NoContent();
+            var updatedConvocatoria = _context.Convocatorias
+                .Include(c => c.Company)
+                .FirstOrDefault(c => c.Id == id);
+            return Ok(MapToResponse(updatedConvocatoria!));
         }
 
         [HttpDelete("{id}")]
