@@ -183,7 +183,7 @@ namespace BackInovationMap.Controllers
             existingConvocatoria.CompanyId = request.CompanyId;
             existingConvocatoria.Presupuesto = request.Presupuesto;
             existingConvocatoria.Requisitos = request.Requisitos ?? new List<string>();
-            existingConvocatoria.Enlace = request.Enlace; // Adding the new field 'Enlace'
+            existingConvocatoria.Enlace = request.Enlace;
             existingConvocatoria.UpdatedAt = DateTime.UtcNow;
 
             // Manejar estado: manual si se proporciona, automático si no
@@ -368,8 +368,8 @@ namespace BackInovationMap.Controllers
                 var companiesCount = _context.Companies.Count();
 
                 return Ok(new
-                {
-                    status = "healthy",
+                Enlace = convocatoria.Enlace,
+                ,Enlace = convocatoria.Enlace
                     convocatorias_count = count,
                     companies_count = companiesCount,
                     timestamp = DateTime.UtcNow,

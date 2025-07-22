@@ -125,3 +125,5 @@ namespace BackInovationMap.DTOs
         public string Estado { get; set; } = string.Empty;
     }
 }
+
+        public string? Enlace { get; set; }
