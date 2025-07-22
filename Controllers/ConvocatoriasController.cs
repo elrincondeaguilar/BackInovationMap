@@ -104,6 +104,7 @@ namespace BackInovationMap.Controllers
                     CompanyId = request.CompanyId,
                     Presupuesto = request.Presupuesto,
                     Requisitos = request.Requisitos ?? new List<string>(),
+                    Enlace = request.Enlace,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 };
@@ -456,8 +457,8 @@ namespace BackInovationMap.Controllers
                 Requisitos = convocatoria.Requisitos,
                 CreatedAt = convocatoria.CreatedAt,
                 UpdatedAt = convocatoria.UpdatedAt,
-            DiasRestantes = diasRestantes,
-            Enlace = convocatoria.Enlace
+                DiasRestantes = diasRestantes,
+                Enlace = convocatoria.Enlace
             };
         }
     }
