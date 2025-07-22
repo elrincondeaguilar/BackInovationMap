@@ -103,6 +103,7 @@ namespace BackInovationMap.DTOs
         public DateTime UpdatedAt { get; set; }
         public int DiasRestantes { get; set; }
         public bool EstaActiva => Estado.ToLower() == "activa";
+        public string? Enlace { get; set; } // Moved Enlace property inside ConvocatoriaResponse
 
         // Información de la empresa convocante
         public int? CompanyId { get; set; }
@@ -126,4 +127,3 @@ namespace BackInovationMap.DTOs
     }
 }
 
-        public string? Enlace { get; set; }

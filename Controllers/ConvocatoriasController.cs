@@ -368,8 +368,7 @@ namespace BackInovationMap.Controllers
                 var companiesCount = _context.Companies.Count();
 
                 return Ok(new
-                Enlace = convocatoria.Enlace,
-                ,Enlace = convocatoria.Enlace
+                {
                     convocatorias_count = count,
                     companies_count = companiesCount,
                     timestamp = DateTime.UtcNow,
