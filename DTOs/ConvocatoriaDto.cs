@@ -80,6 +80,7 @@ namespace BackInovationMap.DTOs
         // Control de estado
         [RegularExpression("^(activa|cerrada|pendiente)?$", ErrorMessage = "Estado inválido. Use: activa, cerrada, pendiente o déjelo vacío")]
         public string? Estado { get; set; }
+        public string? Enlace { get; set; }
 
         // Control manual del estado
         public bool EstadoManual { get; set; } = false;

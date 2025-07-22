@@ -183,6 +183,7 @@ namespace BackInovationMap.Controllers
             existingConvocatoria.CompanyId = request.CompanyId;
             existingConvocatoria.Presupuesto = request.Presupuesto;
             existingConvocatoria.Requisitos = request.Requisitos ?? new List<string>();
+            existingConvocatoria.Enlace = request.Enlace; // Adding the new field 'Enlace'
             existingConvocatoria.UpdatedAt = DateTime.UtcNow;
 
             // Manejar estado: manual si se proporciona, automático si no
