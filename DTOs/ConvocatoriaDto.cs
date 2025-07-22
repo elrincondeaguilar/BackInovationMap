@@ -44,6 +44,7 @@ namespace BackInovationMap.DTOs
 
         // Control manual del estado
         public bool EstadoManual { get; set; } = false;
+        public string? Enlace { get; set; }
     }
 
     public class UpdateConvocatoriaRequest
@@ -84,6 +85,7 @@ namespace BackInovationMap.DTOs
 
         // Control manual del estado
         public bool EstadoManual { get; set; } = false;
+        public string? Enlace { get; set; }
     }
 
     public class ConvocatoriaResponse
@@ -108,6 +110,7 @@ namespace BackInovationMap.DTOs
         // Información de la empresa convocante
         public int? CompanyId { get; set; }
         public CompanyInfo? Company { get; set; }
+        public string? Enlace { get; set; }
     }
 
     public class CompanyInfo
