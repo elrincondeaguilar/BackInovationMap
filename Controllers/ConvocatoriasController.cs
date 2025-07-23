@@ -460,8 +460,8 @@ namespace BackInovationMap.Controllers
                 CreatedAt = convocatoria.CreatedAt,
                 UpdatedAt = convocatoria.UpdatedAt,
                 DiasRestantes = diasRestantes,
-            Enlace = convocatoria.Enlace,
-            Ubicacion = convocatoria.Ubicacion
+                Enlace = convocatoria.Enlace,
+                Ubicacion = convocatoria.Ubicacion
             };
         }
     }
