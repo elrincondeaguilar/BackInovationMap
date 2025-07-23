@@ -105,6 +105,7 @@ namespace BackInovationMap.Controllers
                     Presupuesto = request.Presupuesto,
                     Requisitos = request.Requisitos ?? new List<string>(),
                     Enlace = request.Enlace,
+                    Ubicacion = request.Ubicacion,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 };
@@ -185,6 +186,7 @@ namespace BackInovationMap.Controllers
             existingConvocatoria.Presupuesto = request.Presupuesto;
             existingConvocatoria.Requisitos = request.Requisitos ?? new List<string>();
             existingConvocatoria.Enlace = request.Enlace;
+            existingConvocatoria.Ubicacion = request.Ubicacion;
             existingConvocatoria.UpdatedAt = DateTime.UtcNow;
 
             // Manejar estado: manual si se proporciona, automático si no
@@ -458,7 +460,8 @@ namespace BackInovationMap.Controllers
                 CreatedAt = convocatoria.CreatedAt,
                 UpdatedAt = convocatoria.UpdatedAt,
                 DiasRestantes = diasRestantes,
-                Enlace = convocatoria.Enlace
+            Enlace = convocatoria.Enlace,
+            Ubicacion = convocatoria.Ubicacion
             };
         }
     }

@@ -29,6 +29,7 @@ namespace BackInovationMap.Models
 
         // Nuevos campos del modelo de BD
         public string? Enlace { get; set; }
+        public string? Ubicacion { get; set; }
         public string? Clasificacion { get; set; }
         public string? LineaOportunidad { get; set; }
         public string? PalabrasClave { get; set; }

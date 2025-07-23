@@ -45,6 +45,7 @@ namespace BackInovationMap.DTOs
         // Control manual del estado
         public bool EstadoManual { get; set; } = false;
         public string? Enlace { get; set; }
+        public string? Ubicacion { get; set; }
     }
 
     public class UpdateConvocatoriaRequest
@@ -85,6 +86,7 @@ namespace BackInovationMap.DTOs
         // Control manual del estado
         public bool EstadoManual { get; set; } = false;
         public string? Enlace { get; set; }
+        public string? Ubicacion { get; set; }
     }
 
     public class ConvocatoriaResponse
@@ -105,6 +107,7 @@ namespace BackInovationMap.DTOs
         public int DiasRestantes { get; set; }
         public bool EstaActiva => Estado.ToLower() == "activa";
         public string? Enlace { get; set; } // Moved Enlace property inside ConvocatoriaResponse
+        public string? Ubicacion { get; set; }
 
         // Información de la empresa convocante
         public int? CompanyId { get; set; }
